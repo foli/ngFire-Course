@@ -11,10 +11,22 @@ import { AuthService } from '../../core/auth.service';
 })
 export class ChatMessageComponent implements OnInit {
   @Input() message: Message
+  incoming: boolean
 
-  constructor() { }
+  constructor(
+    private messageService: MessageService,
+    private auth: AuthService
+  ) {}
 
   ngOnInit() {
+    this.checkIncoming()
+  }
+  
+  checkIncoming() {
+    const user = this.auth.currentUserId
+    if(this.message.sender && user) {
+      this.incoming = this.message.senderId !== user
+    }
   }
 
 }

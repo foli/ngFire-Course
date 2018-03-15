@@ -24,8 +24,10 @@ export class ThreadService {
   ) {}
 
   getThreads() {
-    this.threadsCollection = this.afs.collection("chats");
-    return this.threadsCollection.valueChanges();
+    this.threadsCollection = this.afs.collection('chats', ref =>
+      ref.where(`members.${this.auth.currentUserId}`, '==', true)
+    )
+    return this.threadsCollection.valueChanges()
   }
 
   getThread(profileId: string) {
@@ -41,11 +43,36 @@ export class ThreadService {
         ? `${profileId}_${currentUserId}`
         : `${currentUserId}_${profileId}`
     const avatar = this.auth.authState.photoURL
+    
+    const creator = this.auth.authState.displayName || this.auth.authState.email
+    const lastMessage = null
     const members = { [profileId]: true, [currentUserId]: true }
 
-    const thread: Thread = { id, avatar, members }
+    const thread: Thread = { id, avatar, creator, lastMessage, members }
     const threadPath = `chats/${id}`
 
     return this.afs.doc(threadPath).set(thread, { merge: true })
   }
+
+  saveLastMessage(channelId, message) {
+    const data = {
+      lastMessage: message
+    }
+    return this.afs.doc(`chats/${channelId}`).set(data, { merge: true })
+  }
+
+  async deleteThread(threadId: string) {
+    const batch = this.afs.firestore.batch()
+    const query = await this.afs
+      .collection(`chats/${threadId}/messages`)
+      .ref.get()
+      console.log(query)
+    query.forEach(doc => {
+      batch.delete(doc.ref)
+    })
+    batch.commit().then(() => {
+      this.afs.doc(`chats/${threadId}`).delete()
+    })
+  }
+
 }

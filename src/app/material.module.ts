@@ -8,6 +8,7 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatGridListModule } from "@angular/material/grid-list";
 import {MatListModule} from '@angular/material/list';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import {MatListModule} from '@angular/material/list';
     MatProgressBarModule,
     MatSlideToggleModule,
     MatGridListModule,
-    MatListModule
+    MatListModule,
+    MatMenuModule
   ],
   exports: [
     MatButtonModule,
@@ -30,7 +32,8 @@ import {MatListModule} from '@angular/material/list';
     MatProgressBarModule,
     MatSlideToggleModule,
     MatGridListModule,
-    MatListModule
+    MatListModule,
+    MatMenuModule
   ]
 })
 export class MaterialModule {}

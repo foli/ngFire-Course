@@ -5,6 +5,7 @@ import { AuthService } from "../../core/auth.service";
 import { MessageService } from "../message.service";
 
 import { Message } from "../message.model";
+import { ThreadService } from '../thread.service';
 
 @Component({
   selector: "app-chat-input",
@@ -17,6 +18,7 @@ export class ChatInputComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private messageService: MessageService,
+    private threadService: ThreadService,
     private auth: AuthService
   ) {}
 
@@ -35,7 +37,12 @@ export class ChatInputComponent implements OnInit {
       senderId,
       message
     );
+    this.saveLast(channelId, message)
     this.message = "";
+  }
+
+  saveLast(channelId, message) {
+    this.threadService.saveLastMessage(channelId, message)
   }
 
   handleSubmit(event) {

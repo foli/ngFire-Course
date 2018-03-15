@@ -1,5 +1,5 @@
 <mat-list>
-  <mat-list-item>
+  <mat-list-item [ngClass]="{'inbound': incoming, 'outbound': !incoming}">
     <img matListAvatar [src]="message.photoURL || '//:0'" alt="{{message.sender}}">
     <p mat-line>{{message.content}}</p>
     <p mat-line>

@@ -1,7 +1,7 @@
 <mat-list>
   <mat-list-item>
     <img matListAvatar [src]="thread.avatar || '//:0'">
-    <p mat-line>{{ thread.id }}</p>
-    <p mat-line>last message here</p>
+    <p mat-line>{{ thread.creator }}</p>
+    <p mat-line>{{thread.lastMessage}}</p>
   </mat-list-item>
 </mat-list>
