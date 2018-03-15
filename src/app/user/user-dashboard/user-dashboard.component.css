@@ -38,6 +38,8 @@ mat-form-field {
 	z-index: -1;
 }
 .hero {
+  background-color: var(--app-primary-color);
+  color: white;
   min-height: 200px;
   padding-top: 15px;
 }
