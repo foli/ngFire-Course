@@ -1,4 +1,6 @@
 <mat-card>
+  <h3>Add a Post</h3>
+
   <section>
     <input type="file" name="file" id="file" (change)="uploadPostImage($event)">
 
@@ -21,7 +23,7 @@
       </mat-form-field>
 
       <mat-form-field>
-        <textarea matInput placeholder="textarea content" formControlName="content"></textarea>
+        <textarea matInput placeholder="Post content" formControlName="content"></textarea>
       </mat-form-field>
 
       <mat-slide-toggle formControlName="draft">Publish?</mat-slide-toggle>

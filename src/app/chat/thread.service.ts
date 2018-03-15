@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import {Router} from '@angular/router'
 import {
   AngularFirestore,
   AngularFirestoreCollection,
@@ -18,6 +19,7 @@ export class ThreadService {
   threadDoc: AngularFirestoreDocument<Thread>;
 
   constructor(
+    private router: Router,
     private afs: AngularFirestore,
     private auth: AuthService,
     private messageService: MessageService
@@ -52,6 +54,7 @@ export class ThreadService {
     const threadPath = `chats/${id}`
 
     return this.afs.doc(threadPath).set(thread, { merge: true })
+    .then(() => this.router.navigate([`chat/${id}`]))
   }
 
   saveLastMessage(channelId, message) {

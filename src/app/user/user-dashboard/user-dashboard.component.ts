@@ -37,8 +37,9 @@ export class UserDashboardComponent implements OnInit {
   }
 
   setUploadData() {
+    const uid = this.auth.currentUserId
     return this.auth.user.subscribe(user => {
-      this.path = `users/${user.uid}/gallery`
+      this.path = `users/${uid}/gallery`
       this.meta = { uploader: user.uid, website: 'https://foli.sk' }
       // true means Collection upload
       // false means document field upload

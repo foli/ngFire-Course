@@ -9,13 +9,16 @@ import { UserDashboardComponent } from "./user-dashboard/user-dashboard.componen
 import { UserDetailComponent } from "./user-detail/user-detail.component";
 import { UserListComponent } from "./user-list/user-list.component";
 import { UserListItemComponent } from "./user-list-item/user-list-item.component";
+import { RoutingGuard } from "../routing.guard";
 
 const routes: Routes = [
   {
     path: "me",
     component: UserDashboardComponent,
+    canActivate: [RoutingGuard],
     data: { title: "Dashboard" }
   },
+
   { path: "users", component: UserListComponent, data: { title: "Users" } },
   {
     path: "users/:id",

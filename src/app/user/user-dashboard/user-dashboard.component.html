@@ -1,13 +1,5 @@
-<mat-toolbar>
-  <button mat-icon-button (click)="goBack()">
-    <mat-icon>arrow_back</mat-icon>
-  </button>
-  <span class="spacer"></span>
-  <button mat-button (click)="editing=false" *ngIf="editing">Done</button>
-  <button mat-button (click)="editing=true" *ngIf="!editing">Edit Profile</button>
-</mat-toolbar>
-
 <ng-container *ngIf="user">
+
   <div [hidden]="editing">
     <div class="hero">
       <div class="photoURL" [ngStyle]="{'background-image': 'url(' + user.photoURL + ')'}">
@@ -17,13 +9,17 @@
       <div class="hero-text">
         <h1>{{user.displayName}}</h1>
         <p>{{user.email}}</p>
+        <br><br>
+        <button mat-button (click)="editing=true" *ngIf="!editing">Edit Profile</button>
       </div>
     </div>
-    <!-- <app-post-dashboard></app-post-dashboard> -->
     <mat-card>
+      <h3>Add Photo</h3>
       <app-upload [path]="path" [meta]="meta" [uploadType]="uploadType"></app-upload>
     </mat-card>
+    <app-post-dashboard></app-post-dashboard>
   </div>
+
   <div [hidden]="!editing">
     <mat-card>
       <mat-form-field>
@@ -53,6 +49,7 @@
           <textarea matInput placeholder="Update you bio" name="bio" [(ngModel)]="user.bio"></textarea>
         </mat-form-field>
         <button mat-raised-button type="submit" color="accent">Save</button>
+        <button mat-button (click)="editing=false" *ngIf="editing">Cancel</button>
       </form>
     </mat-card>
 
