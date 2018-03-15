@@ -1,0 +1,11 @@
+mat-card {
+  margin: 0.5em;
+  max-width: 600px;
+  margin: 16px auto;
+}
+mat-form-field {
+  width: 100%;
+}
+img {
+  width: 100%;
+}

@@ -48,7 +48,7 @@ export class PostDashboardComponent implements OnInit {
       content: this.postForm.get("content").value,
       draft: this.postForm.get("draft").value || false,
       published: new Date(),
-      claps: 0
+      trending: 0
     };
     if (!this.postForm.untouched) {
       this.postService.create(formData);

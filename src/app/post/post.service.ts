@@ -15,7 +15,7 @@ export class PostService {
 
   constructor(private afs: AngularFirestore) {
     this.postsCollection = this.afs.collection('posts', ref =>
-      ref.orderBy('claps', 'desc').limit(10)
+      ref.orderBy('trending', 'desc').limit(10)
     )
   }
 
@@ -29,6 +29,10 @@ export class PostService {
     });
   }
 
+  getPost(id: string) {
+    return this.afs.doc<Post>(`posts/${id}`)
+  }
+  
   getPostData(id: string) {
     this.postDoc = this.afs.doc<Post>(`posts/${id}`)
     return this.postDoc.valueChanges();
@@ -38,5 +42,11 @@ export class PostService {
     this.postsCollection.add(data)
   }
 
+  delete(id: string) {
+    return this.getPost(id).delete()
+  }
 
+  update(id: string, formData) {
+    return this.getPost(id).update(formData)
+  }
 }

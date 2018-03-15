@@ -1,3 +1,67 @@
-<p>
-  post-list-item works!
-</p>
+<main>
+  <div [hidden]="editing">
+    <mat-card>
+
+      <div routerLink="{{post.id}}">
+        <img src="{{post.image}}" alt="{{post.title}}" [hidden]="post.image == null">
+        <mat-card-content>
+          <mat-card-title>{{post.title}}</mat-card-title>
+          <mat-card-subtitle>posted by {{ post.author }} {{ post.published | fromNow }} </mat-card-subtitle>
+        </mat-card-content>
+      </div>
+
+      <mat-card-actions align="end">
+        <button mat-icon-button (click)="trending(post.trending)">
+          <span>{{post.trending}}</span>
+          <mat-icon>whatshot</mat-icon>
+        </button>
+        <button mat-icon-button (click)="delete(post.id)" *ngIf="auth.currentUserId === post.authorId">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button (click)="editing=true" *ngIf="auth.currentUserId === post.authorId">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div [hidden]="!editing">
+    <mat-card>
+      <mat-card-content>
+
+        <section>
+          <input type="file" name="file" id="file" (change)="uploadPostImage($event)">
+          <div [hidden]="!uploadPercent">
+            <mat-progress-bar mode="determinate" value="{{ uploadPercent | async }}"></mat-progress-bar>
+          </div>
+          <div class="image-preview" [hidden]="!imageURL">
+            <img [src]="imageURL || '//:0' ">
+          </div>
+        </section>
+        <br>
+        <form #postForm="ngForm" (ngSubmit)="update()">
+          <mat-form-field>
+            <input matInput placeholder="Post title" [(ngModel)]="post.title" name="title">
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput placeholder="Post content" [(ngModel)]="post.content" name="content"></textarea>
+          </mat-form-field>
+          <mat-slide-toggle [(ngModel)]="post.draft" name="draft">
+            Publish?
+          </mat-slide-toggle>
+          <br><br>
+          <button mat-raised-button type="submit" color="accent">Save</button>
+
+        </form>
+
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button mat-icon-button (click)="trending(post.trending)">
+          <span>{{post.trending}}</span>
+          <mat-icon>whatshot</mat-icon>
+        </button>
+      </mat-card-actions>
+
+    </mat-card>
+  </div>
+</main>

@@ -6,6 +6,6 @@ export class Post {
   title: string;
   content: string;
   draft: boolean;
-  claps: number;
+  trending: number;
   published: Date
 }
