@@ -1,7 +1,7 @@
 export class Post {
   id?: string;
   image: any;
-  // authorId: string;
+  authorId: string;
   author: string;
   title: string;
   content: string;
