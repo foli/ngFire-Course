@@ -3,4 +3,7 @@ export class User {
   email: string;
   photoURL?: string;
   displayName?: string;
+  website?: string;
+  location?: string;
+  bio?: string;
 }

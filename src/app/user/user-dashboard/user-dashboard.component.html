@@ -1,5 +1,5 @@
 <mat-toolbar>
-  <button mat-icon-button>
+  <button mat-icon-button (click)="goBack()">
     <mat-icon>arrow_back</mat-icon>
   </button>
   <span class="spacer"></span>
@@ -36,6 +36,22 @@
         <mat-hint align="end">Save</mat-hint>
       </mat-form-field>
     </mat-card>
+
+    <mat-card>
+      <form (ngSubmit)="updateUser()">
+        <mat-form-field>
+          <input matInput placeholder="Update you website" name="website" [(ngModel)]="user.website">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Update you location" name="location" [(ngModel)]="user.location">
+        </mat-form-field>
+        <mat-form-field>
+          <textarea matInput placeholder="Update you bio" name="bio" [(ngModel)]="user.bio"></textarea>
+        </mat-form-field>
+        <button mat-raised-button type="submit" color="accent">Save</button>
+      </form>
+    </mat-card>
+
   </div>
-  
+
 </ng-container>

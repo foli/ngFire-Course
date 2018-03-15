@@ -53,4 +53,8 @@ export class UserService {
       .catch(error => console.log(error.message))
   }
   
+  updateUserData(data: any) {
+    const uid = this.auth.currentUserId
+    return this.afs.doc(`users/${uid}`).update(data)
+  }
 }
