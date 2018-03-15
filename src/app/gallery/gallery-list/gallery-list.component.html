@@ -1,0 +1,5 @@
+<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile *ngFor="let image of images | async">
+    <img [src]="image.url" alt="{{image.name}}" routerLink="{{image.id}}">
+  </mat-grid-tile>
+</mat-grid-list>
