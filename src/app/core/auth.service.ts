@@ -8,6 +8,7 @@ import {
 
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/switchMap";
+import { Md5 } from "ts-md5/dist/md5";
 
 interface User {
   uid: string;
@@ -41,9 +42,36 @@ export class AuthService {
       .catch(error => console.log(error.message));
   }
 
+  emailSignUp(email: string, password: string) {
+    return (
+      this.afAuth.auth
+        .createUserWithEmailAndPassword(email, password)
+        .then(user => this.updateUserData(user))
+        .then(() => console.log("Welcome, your account has been created!"))
+        .catch(error => console.log(error.message))
+    );
+  }
+
   signOut() {
     return this.afAuth.auth.signOut().then(() => {
       this.router.navigate(["/"]);
     });
+  }
+
+  private updateUserData(user) {
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(
+      `users/${user.uid}`
+    );
+    const data: User = {
+      uid: user.uid,
+      email: user.email || null,
+      displayName: user.displayName,
+      photoURL:
+        user.photoURL ||
+        "https://www.gravatar.com/avatar/" +
+          Md5.hashStr(user.uid) +
+          "?d=identicon"
+    };
+    return userRef.set(data, { merge: true });
   }
 }

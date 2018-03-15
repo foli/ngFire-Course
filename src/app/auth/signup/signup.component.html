@@ -1,3 +1,22 @@
-<p>
-  signup works!
-</p>
+<main>
+  <section>
+    <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+      <h3>Welcome to ngFire</h3>
+      <p>Lets get started</p>
+
+      <mat-form-field [formGroup]="signUpForm">
+        <input matInput placeholder="Enter you email" [formControl]="email" required>
+        <mat-error *ngIf="email.valid">Not a valid email</mat-error>
+      </mat-form-field>
+
+      <mat-form-field [formGroup]="signUpForm">
+        <input matInput placeholder="Enter you password" [type]="hide ? 'password' : 'text'" [formControl]="password" required>
+        <mat-icon matSuffix (click)="hide = !hide">{{ hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        <mat-error *ngIf="password.valid">Not a valid password</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button type="submit" color="accent">Sign up</button>
+
+    </form>
+  </section>
+</main>
