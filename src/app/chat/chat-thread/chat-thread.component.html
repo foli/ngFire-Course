@@ -1,3 +1,7 @@
-<p>
-  chat-thread works!
-</p>
+<mat-list>
+  <mat-list-item>
+    <img matListAvatar [src]="thread.avatar || '//:0'">
+    <p mat-line>{{ thread.id }}</p>
+    <p mat-line>last message here</p>
+  </mat-list-item>
+</mat-list>

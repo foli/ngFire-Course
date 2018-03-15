@@ -1,3 +1,3 @@
-<p>
-  chat-threads works!
-</p>
+<main *ngFor="let thread of threads | async" routerLink="{{thread.id}}">
+  <app-chat-thread [thread]="thread"></app-chat-thread>
+</main>
