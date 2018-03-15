@@ -1,27 +1,80 @@
-# NgFire
+# ng-fire :metal:
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
+This repo contains the exercice files for the Udemy course: 
+Build Angular 5 apps with Firebase and Angular Material 
+https://goo.gl/8HZJLm
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## how to use the exercise files
 
-## Code scaffolding
+to list all branches use:
+```
+git branch -a
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+to navigate into the lecture use:
+```
+git checkout name-of-the-branch
+```
 
-## Build
+## how to use it
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+1. Add your firebase keys to environments
+```
+export const environment = {
+  production: false,
+  firebase: {
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: ""
+  }
+};
+```
 
-## Running unit tests
+2. remove git remotes (original git repo) then add yours
+```
+git remote rm origin
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+3. install dependencies
+```
+yarn install
+// or
+npm install
+```
 
-## Running end-to-end tests
+4. Check it out in the browser
+```
+ng serve -aot --open
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## What is included in the boilerplate
 
-## Further help
+* Authentication
+- [x] SignIn
+- [x] SignUp
+- [x] Reset Password
+- [x] Oauth
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+* User Module
+- [x] Dashboard (View/Edit profile) `private`
+- [x] User List `public`
+- [x] User Detail `public`
+
+* Blog Module
+- [x] Dashboard (View/Edit profile) `private`
+- [x] Blog List `public`
+- [x] Blog Detail `public`
+
+* Image Gallery
+- [x] Gallery Uploader `private`
+- [x] Gallery List `public`
+- [x] Gallery Detail `public`
+
+* Chat Module
+- [x] Button (Initiate conversation) `public`
+- [x] Thread List `private`
+- [x] Thread Detail `private`
