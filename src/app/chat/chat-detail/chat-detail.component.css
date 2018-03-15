@@ -1,0 +1,20 @@
+mat-toolbar {
+  background-color: var(--app-primary-color);
+  color: white;
+  height: 50px;
+}
+.chat-feed {
+  overflow-y: scroll;
+  overflow: auto;
+  height: calc(100vh - 120px)
+}
+.chat-input {
+  position: fixed;
+  height: 70px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.spacer {
+  flex: 1 1 auto
+}

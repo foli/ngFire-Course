@@ -11,6 +11,7 @@ import { CoreModule } from "./core/core.module";
 import { RoutingModule } from ".//routing.module";
 import { PostModule } from './post/post.module';
 import { GalleryModule } from './gallery/gallery.module';
+import { ChatModule } from './chat/chat.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +23,8 @@ import { GalleryModule } from './gallery/gallery.module';
     CoreModule,
     RoutingModule,
     PostModule,
-    GalleryModule
+    GalleryModule,
+    ChatModule
   ],
   providers: [],
   bootstrap: [AppComponent]
