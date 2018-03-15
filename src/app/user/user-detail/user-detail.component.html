@@ -1,3 +1,14 @@
-<p>
-  user-detail works!
-</p>
+<div *ngIf="user">
+  <mat-card>
+    <mat-card-header>
+      <img [src]="user.photoURL || '//:0'" alt="{{user.displayName}}">
+      <div class="user-title">
+        <mat-card-title>{{user.displayName}}</mat-card-title>
+        <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{user.uid}}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
