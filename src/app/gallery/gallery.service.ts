@@ -10,6 +10,7 @@ import { AngularFireStorage } from 'angularfire2/storage'
 @Injectable()
 export class GalleryService {
   galleryCollection: AngularFirestoreCollection<any>
+  galleryDoc: AngularFirestoreDocument<any>
 
   constructor(
     private afs: AngularFirestore,
@@ -27,6 +28,22 @@ export class GalleryService {
         return { id, ...data }
       })
     })
+  }
+
+  getImage(id: string) {
+    const uid = this.auth.currentUserId
+    this.galleryDoc = this.afs.doc(`users/${uid}/gallery/${id}`)
+    return this.galleryDoc.valueChanges()
+  }
+
+  deleteImage(id: string, name: string) {
+    const uid = this.auth.currentUserId
+    const imageRef = this.storage
+      .ref(`users/${uid}/gallery`)
+      .child(name)
+      .delete()
+    this.afs.doc(`users/${uid}/gallery/${id}`).delete()
+    console.log("Image deleted!")
   }
   
 }

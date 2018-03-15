@@ -1,0 +1,13 @@
+mat-card {
+  margin: 0.5em;
+  max-width: 800px;
+  margin: auto;
+  padding: 0;
+}
+mat-card-actions {
+  padding-right: 20px;
+  padding-bottom: 15px;
+}
+img {
+  width: 100%;
+}

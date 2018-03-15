@@ -9,6 +9,7 @@ import { GalleryService } from "./gallery.service";
 const routes: Routes = [
   { path: "gallery", component: GalleryListComponent },
   { path: "gallery/:id", component: GalleryDetailComponent },
+  { path: 'users/:id/:id', component: GalleryDetailComponent},
 ];
 
 @NgModule({
