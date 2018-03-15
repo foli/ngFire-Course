@@ -14,7 +14,7 @@ import { MessageService } from './message.service';
 import { ThreadService } from './thread.service';
 
 const routes: Routes = [
-  { path: "chat/detail", component: ChatDetailComponent },
+  { path: "chat/:id", component: ChatDetailComponent },
   { path: "chat", component: ChatListComponent }
 ];
 
@@ -24,6 +24,7 @@ const routes: Routes = [
     ChatFeedComponent,
     ChatInputComponent,
     ChatMessagesComponent,
+    ChatMessageComponent,
     ChatThreadsComponent
   ],
   declarations: [

@@ -1,3 +1,9 @@
-<p>
-  chat-message works!
-</p>
+<mat-list>
+  <mat-list-item>
+    <img matListAvatar [src]="message.photoURL || '//:0'" alt="{{message.sender}}">
+    <p mat-line>{{message.content}}</p>
+    <p mat-line>
+      <small>{{message.timestamp | fromNow }}</small>
+    </p>
+  </mat-list-item>
+</mat-list>
