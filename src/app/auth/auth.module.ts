@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-// import { SharedModule } from "../shared/shared.module";
+import { SharedModule } from "../shared/shared.module";
 import { SigninComponent } from "./signin/signin.component";
 import { SignupComponent } from "./signup/signup.component";
 import { ResetPasswordComponent } from "./reset-password/reset-password.component";
@@ -16,7 +16,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes), SharedModule],
   declarations: [SigninComponent, SignupComponent, ResetPasswordComponent]
 })
 export class AuthModule {}
