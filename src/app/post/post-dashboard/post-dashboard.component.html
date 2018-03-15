@@ -1,6 +1,16 @@
 <mat-card>
   <section>
-    <!-- image uploader -->
+    <input type="file" name="file" id="file" (change)="uploadPostImage($event)">
+
+    <div [hidden]="!uploadPercent">
+      <mat-progress-bar mode="determinate" value="{{ uploadPercent | async }}"></mat-progress-bar>
+    </div>
+    <a [href]="downloadURL | async" [hidden]="!downloadURL">{{ downloadURL | async }}</a>
+
+    <div class="image-preview" [hidden]="!imageURL">
+      <img [src]="imageURL || '//:0' ">
+    </div>
+
   </section>
 
   <section>

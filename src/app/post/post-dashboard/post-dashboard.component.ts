@@ -1,5 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { Observable } from "rxjs/Observable";
+
+import { AngularFireStorage } from "angularfire2/storage";
 
 import { AuthService } from "../../core/auth.service";
 import { PostService } from "../post.service";
@@ -13,10 +16,13 @@ import { Post } from "../post.model";
 export class PostDashboardComponent implements OnInit {
   postForm: FormGroup;
 
+  uploadPercent: Observable<number>;
+  downloadURL: Observable<string>;
   imageURL: string;
 
   constructor(
     private postService: PostService,
+    private storage: AngularFireStorage,
     private auth: AuthService,
     private fb: FormBuilder
   ) {}
@@ -46,6 +52,21 @@ export class PostDashboardComponent implements OnInit {
     if (!this.postForm.untouched) {
       this.postService.create(formData);
       this.postForm.reset();
+      this.imageURL = ''
+    }
+  }
+
+  uploadPostImage(event) {
+    const file = event.target.files[0];
+    const path = `posts/${file.name}`;
+    if (file.type.split("/")[0] !== "image") {
+      return alert("only image files");
+    } else {
+      const task = this.storage.upload(path, file);
+      this.downloadURL = task.downloadURL();
+      this.uploadPercent = task.percentageChanges();
+      console.log("Image Uploaded!");
+      this.downloadURL.subscribe(url => (this.imageURL = url));
     }
   }
 }

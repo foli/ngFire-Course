@@ -4,6 +4,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 
 @NgModule({
@@ -13,6 +14,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
     MatToolbarModule,
     MatIconModule,
     MatInputModule,
+    MatProgressBarModule,
     MatSlideToggleModule
   ],
   exports: [
@@ -21,6 +23,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
     MatToolbarModule,
     MatIconModule,
     MatInputModule,
+    MatProgressBarModule,
     MatSlideToggleModule
   ]
 })

@@ -1,6 +1,19 @@
+mat-card {
+  margin: 10px;
+  max-width: 600px;
+  margin: 16px auto;
+}
 mat-form-field {
   width: 100%;
 }
+mat-card-actions {
+  padding: 0.5em;
+}
 img {
   width: 100%;
+}
+.image-preview {
+  width: 100%;
+  min-height: 50px;
+  background-color: #f6f6f6;
 }
