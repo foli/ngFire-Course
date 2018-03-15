@@ -19,7 +19,10 @@
         <p>{{user.email}}</p>
       </div>
     </div>
-    <app-post-dashboard></app-post-dashboard>
+    <!-- <app-post-dashboard></app-post-dashboard> -->
+    <mat-card>
+      <app-upload [path]="path" [meta]="meta" [uploadType]="uploadType"></app-upload>
+    </mat-card>
   </div>
   <div [hidden]="!editing">
     <mat-card>
