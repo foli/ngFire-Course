@@ -37,15 +37,19 @@ export class UserDashboardComponent implements OnInit {
   }
 
   setUploadData() {
-    const uid = this.auth.currentUserId
     return this.auth.user.subscribe(user => {
-      this.path = `users/${uid}/gallery`
-      this.meta = { uploader: user.uid, website: 'https://foli.sk' }
-      // true means Collection upload
-      // false means document field upload
-      this.uploadType = true
+      // wrap this in a if statement
+      // to avoid error msg on logout
+      if (user) {
+        this.path = `users/${user.uid}/gallery`
+        this.meta = { uploader: user.uid, website: 'https://foli.sk' }
+        // true means Collection upload
+        // false means document field upload
+        this.uploadType = true
+      }
     })
   }
+  
   getUser() {
     return this.auth.user.subscribe(user => (this.user = user));
   }
