@@ -1,6 +1,6 @@
 # ng-fire :metal:
 
-This repo contains the exercice files for the Udemy course: 
+This repo contains the exercise files for the Udemy course: 
 Build Angular 5 apps with Firebase and Angular Material 
 https://goo.gl/8HZJLm
 
