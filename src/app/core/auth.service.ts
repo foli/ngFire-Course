@@ -8,8 +8,9 @@ import {
   AngularFirestoreDocument
 } from "angularfire2/firestore";
 
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/switchMap";
+import { Observable, of } from "rxjs";
+import { switchMap, startWith, tap } from "rxjs/operators";
+
 import { Md5 } from "ts-md5/dist/md5";
 
 interface User {
@@ -30,24 +31,25 @@ export class AuthService {
     private afs: AngularFirestore,
     private router: Router
   ) {
-    this.user = this.afAuth.authState.switchMap(user => {
-      if (user) {
-        return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-      } else {
-        return Observable.of(null);
-      }
-    });
-    this.afAuth.authState.subscribe(data => this.authState = data)
+    this.user = this.afAuth.authState.pipe(
+      switchMap(user => {
+        if (user) {
+          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+        } else {
+          return of(null);
+        }
+      })
+    );
   }
 
   get authenticated(): boolean {
-    return this.authState !== null
+    return this.authState !== null;
   }
 
   get currentUserId(): string {
-    return this.authenticated ? this.authState.uid : null
+    return this.authenticated ? this.authState.uid : null;
   }
-  
+
   emailSignIn(email: string, password: string) {
     return this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
@@ -84,29 +86,30 @@ export class AuthService {
   }
 
   googleLogin() {
-    const provider = new firebase.auth.GoogleAuthProvider()
-    return this.socialLogin(provider)
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return this.socialLogin(provider);
   }
 
   githubLogin() {
-    const provider = new firebase.auth.GithubAuthProvider()
-    return this.socialLogin(provider)
+    const provider = new firebase.auth.GithubAuthProvider();
+    return this.socialLogin(provider);
   }
   facebookLogin() {
-    const provider = new firebase.auth.FacebookAuthProvider()
-    return this.socialLogin(provider)
+    const provider = new firebase.auth.FacebookAuthProvider();
+    return this.socialLogin(provider);
   }
   twitterLogin() {
-    const provider = new firebase.auth.TwitterAuthProvider()
-    return this.socialLogin(provider)
+    const provider = new firebase.auth.TwitterAuthProvider();
+    return this.socialLogin(provider);
   }
-  
+
   private socialLogin(provider) {
-    return this.afAuth.auth.signInWithPopup(provider)
+    return this.afAuth.auth
+      .signInWithPopup(provider)
       .then(credential => {
-        this.updateUserData(credential.user)
+        this.updateUserData(credential.user);
       })
-    .catch(error => console.log(error.message))
+      .catch(error => console.log(error.message));
   }
 
   private updateUserData(user) {

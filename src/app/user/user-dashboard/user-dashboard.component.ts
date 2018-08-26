@@ -20,9 +20,9 @@ export class UserDashboardComponent implements OnInit {
 
   task: AngularFireUploadTask;
 
-  path: string
-  meta: object
-  uploadType: boolean
+  path: string;
+  meta: object;
+  uploadType: boolean;
 
   constructor(
     private auth: AuthService,
@@ -33,7 +33,7 @@ export class UserDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getUser();
-    this.setUploadData()
+    this.setUploadData();
   }
 
   setUploadData() {
@@ -41,15 +41,15 @@ export class UserDashboardComponent implements OnInit {
       // wrap this in a if statement
       // to avoid error msg on logout
       if (user) {
-        this.path = `users/${user.uid}/gallery`
-        this.meta = { uploader: user.uid, website: 'https://foli.sk' }
+        this.path = `users/${user.uid}/gallery`;
+        this.meta = { uploader: user.uid, website: "https://foli.sk" };
         // true means Collection upload
         // false means document field upload
-        this.uploadType = true
+        this.uploadType = true;
       }
-    })
+    });
   }
-  
+
   getUser() {
     return this.auth.user.subscribe(user => (this.user = user));
   }
@@ -72,7 +72,12 @@ export class UserDashboardComponent implements OnInit {
       return alert("only images allowed");
     } else {
       this.task = this.storage.upload(path, file);
-      this.task.downloadURL().subscribe(url => {
+
+      // add this ref
+      const ref = this.storage.ref(path);
+
+      // and change the observable here
+      ref.getDownloadURL().subscribe(url => {
         this.userService.updateProfileData(this.user.displayName, url);
       });
     }

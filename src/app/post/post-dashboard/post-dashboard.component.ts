@@ -8,6 +8,7 @@ import { AngularFireStorage } from "angularfire2/storage";
 import { AuthService } from "../../core/auth.service";
 import { PostService } from "../post.service";
 import { Post } from "../post.model";
+import { finalize } from "rxjs/operators";
 
 @Component({
   selector: "app-post-dashboard",
@@ -18,7 +19,8 @@ export class PostDashboardComponent implements OnInit {
   // here we can use the ViewChild from angular
   // to check if the input has anything inside hence the 'child'
   // inputField and resetMe is just a variable, you can name it as you like
-  @ViewChild('resetMe') inputField: any
+  @ViewChild("resetMe")
+  inputField: any;
 
   postForm: FormGroup;
 
@@ -59,23 +61,30 @@ export class PostDashboardComponent implements OnInit {
     if (!this.postForm.untouched) {
       this.postService.create(formData);
       this.postForm.reset();
-      this.imageURL = ''
+      this.imageURL = "";
       // here we set the inputField back to empty
-      this.inputField.nativeElement.value = ''
+      this.inputField.nativeElement.value = "";
     }
   }
 
   uploadPostImage(event) {
     const file = event.target.files[0];
     const path = `posts/${file.name}`;
+
     if (file.type.split("/")[0] !== "image") {
       return alert("only image files");
     } else {
       const task = this.storage.upload(path, file);
-      this.downloadURL = task.downloadURL();
-      this.uploadPercent = task.percentageChanges();
-      console.log("Image Uploaded!");
-      this.downloadURL.subscribe(url => (this.imageURL = url));
+
+      // add the following lines
+      const ref = this.storage.ref(path);
+      task.snapshotChanges().pipe(
+        finalize(() => {
+          this.downloadURL = ref.getDownloadURL();
+          this.downloadURL.subscribe(url => (this.imageURL = url));
+          console.log("Image Uploaded!");
+        })
+      );
     }
   }
 }
