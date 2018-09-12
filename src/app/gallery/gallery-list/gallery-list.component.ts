@@ -1,11 +1,11 @@
-import { Component, OnInit } from "@angular/core";
-import { GalleryService } from "../gallery.service";
-import { Observable } from "rxjs/Observable";
+import { Component, OnInit } from '@angular/core';
+import { GalleryService } from '../gallery.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
-  selector: "app-gallery-list",
-  templateUrl: "./gallery-list.component.html",
-  styleUrls: ["./gallery-list.component.css"]
+  selector: 'app-gallery-list',
+  templateUrl: './gallery-list.component.html',
+  styleUrls: ['./gallery-list.component.css']
 })
 export class GalleryListComponent implements OnInit {
   images: Observable<any[]>;
@@ -14,11 +14,11 @@ export class GalleryListComponent implements OnInit {
 
   ngOnInit() {
     this.getImages();
-    console.log(this.images)
+    console.log(this.images);
   }
 
   getImages() {
     this.images = this.galleryService.getImages();
-    this.images.subscribe(res => console.log(res))
+    this.images.subscribe(res => console.log(res));
   }
 }

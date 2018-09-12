@@ -1,13 +1,12 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
   AngularFirestoreDocument
-} from "angularfire2/firestore";
-import { Observable } from "rxjs/Observable";
+} from '@angular/fire/firestore';
 
-import { User } from "./user.model";
-import { AuthService } from "../core/auth.service";
+import { User } from './user.model';
+import { AuthService } from '../core/auth.service';
 
 @Injectable()
 export class UserService {
@@ -17,7 +16,7 @@ export class UserService {
   constructor(private afs: AngularFirestore, private auth: AuthService) {}
 
   getUsers() {
-    this.userCollection = this.afs.collection("users");
+    this.userCollection = this.afs.collection('users');
     return this.userCollection.valueChanges();
   }
 
@@ -31,15 +30,13 @@ export class UserService {
     const data = { displayName, photoURL };
     return user
       .updateProfile(data)
-      .then(() =>
-        this.afs.doc(`users/${user.uid}`).update({ displayName, photoURL })
-      )
-      .then(() => console.log("Your profile has been updated!"))
+      .then(() => this.afs.doc(`users/${user.uid}`).update({ displayName, photoURL }))
+      .then(() => console.log('Your profile has been updated!'))
       .catch(error => console.log(error.message));
   }
 
   updateEmailData(email: string) {
-    const user = this.auth.authState
+    const user = this.auth.authState;
     return user
       .updateEmail(email)
       .then(() => this.afs.doc(`users/${user.uid}`).update({ email }))
@@ -48,13 +45,13 @@ export class UserService {
         this.auth.authState
           .sendEmailVerification()
           .then(() => console.log('We sent you an email verification'))
-          .catch(error => console.log(error.message))
+          .catch(error => console.log(error.message));
       })
-      .catch(error => console.log(error.message))
+      .catch(error => console.log(error.message));
   }
-  
+
   updateUserData(data: any) {
-    const uid = this.auth.currentUserId
-    return this.afs.doc(`users/${uid}`).update(data)
+    const uid = this.auth.currentUserId;
+    return this.afs.doc(`users/${uid}`).update(data);
   }
 }

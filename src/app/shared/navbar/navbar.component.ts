@@ -7,11 +7,9 @@ import { AuthService } from '../../core/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  appTitle = 'ngFire'
+  appTitle = 'ngFire';
 
-  constructor(public auth: AuthService) { }
+  constructor(public auth: AuthService) {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

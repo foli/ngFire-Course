@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
   AngularFirestoreDocument
-} from "angularfire2/firestore";
+} from '@angular/fire/firestore';
 
-import { AuthService } from "../core/auth.service";
-import { Message } from "./message.model";
+import { AuthService } from '../core/auth.service';
+import { Message } from './message.model';
 
 @Injectable()
 export class MessageService {
@@ -16,9 +16,8 @@ export class MessageService {
   constructor(private afs: AngularFirestore, private auth: AuthService) {}
 
   getMessages(channelId) {
-    this.messagesCollection = this.afs.collection(
-      `chats/${channelId}/messages`,
-      ref => ref.orderBy("timestamp")
+    this.messagesCollection = this.afs.collection(`chats/${channelId}/messages`, ref =>
+      ref.orderBy('timestamp')
     );
     return this.messagesCollection.valueChanges();
   }
@@ -40,7 +39,7 @@ export class MessageService {
     return this.afs
       .collection(`chats/${channelId}/messages`)
       .add(data)
-      .then(() => console.log("Message sent"))
+      .then(() => console.log('Message sent'))
       .catch(error => console.log(error.message));
   }
 }

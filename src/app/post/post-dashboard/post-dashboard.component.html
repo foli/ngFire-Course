@@ -4,7 +4,7 @@
   <section>
     <!-- add #resetMe // we will use it to reference this input field -->
     <input #resetMe type="file" name="file" id="file" (change)="uploadPostImage($event)">
-    
+
     <!-- add the "|| !imageURL" to the hidden condition here too 
             as we can't easily reset an observable -->
     <div [hidden]="!uploadPercent || !imageURL">

@@ -1,29 +1,29 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import { SharedModule } from "../shared/shared.module";
-import { PostModule } from "../post/post.module";
+import { SharedModule } from '../shared/shared.module';
+import { PostModule } from '../post/post.module';
 
-import { UserService } from "./user.service";
-import { UserDashboardComponent } from "./user-dashboard/user-dashboard.component";
-import { UserDetailComponent } from "./user-detail/user-detail.component";
-import { UserListComponent } from "./user-list/user-list.component";
-import { UserListItemComponent } from "./user-list-item/user-list-item.component";
-import { RoutingGuard } from "../routing.guard";
+import { UserService } from './user.service';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { UserListItemComponent } from './user-list-item/user-list-item.component';
+import { RoutingGuard } from '../routing.guard';
 
 const routes: Routes = [
   {
-    path: "me",
+    path: 'me',
     component: UserDashboardComponent,
     canActivate: [RoutingGuard],
-    data: { title: "Dashboard" }
+    data: { title: 'Dashboard' }
   },
 
-  { path: "users", component: UserListComponent, data: { title: "Users" } },
+  { path: 'users', component: UserListComponent, data: { title: 'Users' } },
   {
-    path: "users/:id",
+    path: 'users/:id',
     component: UserDetailComponent,
-    data: { title: "Profile" }
+    data: { title: 'Profile' }
   }
 ];
 

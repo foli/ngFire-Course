@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
-import { Observable } from "rxjs/Observable";
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
-import { Message } from "../message.model";
-import { MessageService } from "../message.service";
+import { Message } from '../message.model';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-chat-messages',
@@ -11,20 +11,16 @@ import { MessageService } from "../message.service";
   styleUrls: ['./chat-messages.component.css']
 })
 export class ChatMessagesComponent implements OnInit {
-  messages: Observable<Message[]>
+  messages: Observable<Message[]>;
 
-  constructor(
-    private messageService: MessageService,
-    private route: ActivatedRoute
-  ) { }
+  constructor(private messageService: MessageService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.getMessages()
+    this.getMessages();
   }
 
   getMessages() {
-    const channelId = this.route.snapshot.paramMap.get('id')
-    this.messages = this.messageService.getMessages(channelId)
+    const channelId = this.route.snapshot.paramMap.get('id');
+    this.messages = this.messageService.getMessages(channelId);
   }
-
 }

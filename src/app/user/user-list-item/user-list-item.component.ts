@@ -8,11 +8,10 @@ import { User } from '../user.model';
   styleUrls: ['./user-list-item.component.css']
 })
 export class UserListItemComponent implements OnInit {
-  @Input() user: User
+  @Input()
+  user: User;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

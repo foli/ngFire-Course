@@ -7,5 +7,5 @@ export class Post {
   content: string;
   draft: boolean;
   trending: number;
-  published: Date
+  published: Date;
 }

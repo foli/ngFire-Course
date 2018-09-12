@@ -1,21 +1,16 @@
 // this file has been modified since the lecture was recorded
-import { Injectable } from '@angular/core'
-import {
-  CanActivate,
-  ActivatedRouteSnapshot,
-  Router,
-  RouterStateSnapshot
-} from '@angular/router'
-import { Observable } from 'rxjs/Observable'
+import { Injectable } from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
 // import rxjs operators
-import 'rxjs/add/operator/do'
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/take'
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/take';
 
 // remove authService
 // import AngularFireAuth
-import { AngularFireAuth } from 'angularfire2/auth'
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable()
 export class RoutingGuard implements CanActivate {
@@ -36,9 +31,9 @@ export class RoutingGuard implements CanActivate {
       .map(user => !!user)
       .do(loggedIn => {
         if (!loggedIn) {
-          console.log('not autorized')
-          this.router.navigate(['/signin'])
+          console.log('not autorized');
+          this.router.navigate(['/signin']);
         }
-      })
+      });
   }
 }

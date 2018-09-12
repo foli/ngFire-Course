@@ -1,18 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { Location } from "@angular/common";
-import {
-  AngularFireStorage,
-  AngularFireUploadTask
-} from "angularfire2/storage";
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 
-import { AuthService } from "../../core/auth.service";
-import { UserService } from "../user.service";
-import { User } from "../user.model";
+import { AuthService } from '../../core/auth.service';
+import { UserService } from '../user.service';
+import { User } from '../user.model';
 
 @Component({
-  selector: "app-user-dashboard",
-  templateUrl: "./user-dashboard.component.html",
-  styleUrls: ["./user-dashboard.component.css"]
+  selector: 'app-user-dashboard',
+  templateUrl: './user-dashboard.component.html',
+  styleUrls: ['./user-dashboard.component.css']
 })
 export class UserDashboardComponent implements OnInit {
   editing = false;
@@ -42,7 +39,7 @@ export class UserDashboardComponent implements OnInit {
       // to avoid error msg on logout
       if (user) {
         this.path = `users/${user.uid}/gallery`;
-        this.meta = { uploader: user.uid, website: "https://foli.sk" };
+        this.meta = { uploader: user.uid, website: 'https://foli.sk' };
         // true means Collection upload
         // false means document field upload
         this.uploadType = true;
@@ -55,10 +52,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
   updateProfile() {
-    return this.userService.updateProfileData(
-      this.user.displayName,
-      this.user.photoURL
-    );
+    return this.userService.updateProfileData(this.user.displayName, this.user.photoURL);
   }
 
   updateEmail() {
@@ -68,8 +62,8 @@ export class UserDashboardComponent implements OnInit {
   uploadPhotoURL(event): void {
     const file = event.target.files[0];
     const path = `users/${this.user.uid}/photos/${file.name}`;
-    if (file.type.split("/")[0] !== "image") {
-      return alert("only images allowed");
+    if (file.type.split('/')[0] !== 'image') {
+      return alert('only images allowed');
     } else {
       this.task = this.storage.upload(path, file);
 

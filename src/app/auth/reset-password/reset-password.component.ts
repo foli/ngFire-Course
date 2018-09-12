@@ -12,11 +12,9 @@ export class ResetPasswordComponent implements OnInit {
 
   constructor(private auth: AuthService, private router: Router) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   resetPassword() {
-    return this.auth.resetPassword(this.email)
-    .then(() => this.router.navigate(['/signin']))
+    return this.auth.resetPassword(this.email).then(() => this.router.navigate(['/signin']));
   }
 }

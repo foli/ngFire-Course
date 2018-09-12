@@ -1,13 +1,10 @@
-import { Injectable } from "@angular/core";
-import {
-  AngularFirestore,
-  AngularFirestoreCollection
-} from "angularfire2/firestore";
-import { AngularFireStorage } from "angularfire2/storage";
-import { Observable } from "rxjs/Observable";
-import { finalize } from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { Observable } from 'rxjs/Observable';
+import { finalize } from 'rxjs/operators';
 
-import { Md5 } from "ts-md5";
+import { Md5 } from 'ts-md5';
 
 @Injectable()
 export class UploadService {
@@ -15,19 +12,16 @@ export class UploadService {
 
   uploads: AngularFirestoreCollection<any>;
 
-  constructor(
-    private afs: AngularFirestore,
-    private storage: AngularFireStorage
-  ) {}
+  constructor(private afs: AngularFirestore, private storage: AngularFireStorage) {}
 
   uploadTask(path, file, meta, uploadType) {
     const nameHash = Md5.hashStr(file.name + new Date().getTime());
-    const fileExt = file.type.split("/")[1];
+    const fileExt = file.type.split('/')[1];
     const name = `${nameHash}.${fileExt}`;
 
     const newMeta = {
       ...meta,
-      someMoreData: "Moooore data"
+      someMoreData: 'Moooore data'
     };
 
     const ref = this.storage.ref(`${path}/${name}`);
@@ -37,11 +31,11 @@ export class UploadService {
     task.snapshotChanges().pipe(
       finalize(() => {
         this.downloadURL = ref.getDownloadURL();
-        console.log("Image Uploaded!");
+        console.log('Image Uploaded!');
       })
     );
 
-    if (uploadType == true) {
+    if (uploadType === true) {
       // saves as collection
       this.uploads = this.afs.collection(path);
       this.downloadURL.subscribe(url => {
