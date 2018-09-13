@@ -47,7 +47,9 @@ export class PostDashboardComponent implements OnInit {
     });
   }
 
-  savePost() {
+  async savePost() {
+    const user = await this.auth.authState;
+    console.log(user);
     const formData: Post = {
       author: this.auth.authState.displayName || this.auth.authState.email,
       authorId: this.auth.currentUserId,

@@ -5,6 +5,8 @@ import {
   AngularFirestoreDocument
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs/Observable';
+// add rxjs operator imports
+import { map } from 'rxjs/operators';
 
 import { Post } from './post.model';
 
@@ -20,13 +22,16 @@ export class PostService {
   }
 
   getPosts(): Observable<Post[]> {
-    return this.postsCollection.snapshotChanges().map(actions => {
-      return actions.map(a => {
-        const data = a.payload.doc.data() as Post;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      });
-    });
+    // use pipe operator before mapping actions
+    return this.postsCollection.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Post;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
   }
 
   getPost(id: string) {

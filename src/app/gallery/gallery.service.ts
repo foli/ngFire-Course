@@ -7,6 +7,9 @@ import {
 import { AuthService } from '../core/auth.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 
+// add rxjs operator imports
+import { map } from 'rxjs/operators';
+
 @Injectable()
 export class GalleryService {
   galleryCollection: AngularFirestoreCollection<any>;
@@ -21,13 +24,16 @@ export class GalleryService {
   getImages() {
     const uid = this.auth.currentUserId;
     this.galleryCollection = this.afs.collection(`users/${uid}/gallery`);
-    return this.galleryCollection.snapshotChanges().map(actions => {
-      return actions.map(a => {
-        const data = a.payload.doc.data();
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      });
-    });
+    // use pipe operator before mapping actions
+    return this.galleryCollection.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
   }
 
   getImage(id: string) {
