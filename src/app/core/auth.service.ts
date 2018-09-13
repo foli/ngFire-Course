@@ -10,18 +10,15 @@ import { switchMap } from 'rxjs/operators';
 
 import { Md5 } from 'ts-md5/dist/md5';
 
-interface User {
-  uid: string;
-  email: string;
-  photoURL?: string;
-  displayName?: string;
-}
+// replace interface with user.model
+import { User } from '../user/user.model';
 
 @Injectable()
 export class AuthService {
+  // this is our own User (ie: extra info)
   user: Observable<User>;
-
-  authState: any = null;
+  // this is the firebase User Object
+  authState: firebase.User;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -30,8 +27,11 @@ export class AuthService {
   ) {
     this.user = this.afAuth.authState.pipe(
       switchMap(user => {
+        this.authState = user;
+        console.log('Firebase User Object: ', this.authState);
         if (user) {
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+          console.log('App User: ', this.user);
+          return this.afs.doc<any>(`users/${user.uid}`).valueChanges();
         } else {
           return of(null);
         }
@@ -40,10 +40,12 @@ export class AuthService {
   }
 
   get authenticated(): boolean {
+    // update user ref
     return this.authState !== null;
   }
 
   get currentUserId(): string {
+    // update user ref
     return this.authenticated ? this.authState.uid : null;
   }
 
