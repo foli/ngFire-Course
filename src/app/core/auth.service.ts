@@ -1,23 +1,23 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 
-import * as firebase from 'firebase/app';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import * as firebase from "firebase/app";
+import { AngularFireAuth } from "@angular/fire/auth";
+import {
+  AngularFirestore,
+  AngularFirestoreDocument
+} from "@angular/fire/firestore";
 
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Observable, of } from "rxjs";
+import { switchMap, first } from "rxjs/operators";
 
-import { Md5 } from 'ts-md5/dist/md5';
+import { Md5 } from "ts-md5/dist/md5";
 
-// replace interface with user.model
-import { User } from '../user/user.model';
+import { User } from "../user/user.model";
 
 @Injectable()
 export class AuthService {
-  // this is our own User (ie: extra info)
   user: Observable<User>;
-  // this is the firebase User Object
   authState: firebase.User;
 
   constructor(
@@ -28,9 +28,9 @@ export class AuthService {
     this.user = this.afAuth.authState.pipe(
       switchMap(user => {
         this.authState = user;
-        console.log('Firebase User Object: ', this.authState);
+        console.log("Firebase User Object: ", this.authState);
         if (user) {
-          console.log('App User: ', this.user);
+          console.log("App User: ", this.user);
           return this.afs.doc<any>(`users/${user.uid}`).valueChanges();
         } else {
           return of(null);
@@ -39,32 +39,34 @@ export class AuthService {
     );
   }
 
+  getUser() {
+    return this.user.pipe(first()).toPromise();
+  }
+
   get authenticated(): boolean {
-    // update user ref
     return this.authState !== null;
   }
 
   get currentUserId(): string {
-    // update user ref
     return this.authenticated ? this.authState.uid : null;
   }
 
   emailSignIn(email: string, password: string) {
     return this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
-      .then(() => console.log('You have successfully signed in'))
+      .then(() => console.log("You have successfully signed in"))
       .catch(error => console.log(error.message));
   }
 
   emailSignUp(email: string, password: string) {
     return this.afAuth.auth
       .createUserWithEmailAndPassword(email, password)
-      .then(user => this.updateUserData(user))
-      .then(() => console.log('Welcome, your account has been created!'))
+      .then(data => this.updateUserData(data.user))
+      .then(() => console.log("Welcome, your account has been created!"))
       .then(() => {
         this.afAuth.auth.currentUser
           .sendEmailVerification()
-          .then(() => console.log('We sent you an email verification'))
+          .then(() => console.log("We sent you an email verification"))
           .catch(error => console.log(error.message));
       })
       .catch(error => console.log(error.message));
@@ -80,7 +82,7 @@ export class AuthService {
 
   signOut() {
     return this.afAuth.auth.signOut().then(() => {
-      this.router.navigate(['/']);
+      this.router.navigate(["/"]);
     });
   }
 
@@ -112,13 +114,18 @@ export class AuthService {
   }
 
   private updateUserData(user) {
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(
+      `users/${user.uid}`
+    );
     const data: User = {
       uid: user.uid,
       email: user.email || null,
       displayName: user.displayName,
       photoURL:
-        user.photoURL || 'https://www.gravatar.com/avatar/' + Md5.hashStr(user.uid) + '?d=identicon'
+        user.photoURL ||
+        "https://www.gravatar.com/avatar/" +
+          Md5.hashStr(user.uid) +
+          "?d=identicon"
     };
     return userRef.set(data, { merge: true });
   }
