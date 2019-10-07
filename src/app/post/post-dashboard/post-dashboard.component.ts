@@ -19,7 +19,7 @@ export class PostDashboardComponent implements OnInit {
   // here we can use the ViewChild from angular
   // to check if the input has anything inside hence the 'child'
   // inputField and resetMe is just a variable, you can name it as you like
-  @ViewChild('resetMe')
+  @ViewChild('resetMe', { static: true })
   inputField: any;
 
   postForm: FormGroup;

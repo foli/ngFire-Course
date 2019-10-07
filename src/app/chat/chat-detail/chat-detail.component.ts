@@ -6,7 +6,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked } from '@ang
   styleUrls: ['./chat-detail.component.css']
 })
 export class ChatDetailComponent implements OnInit {
-  @ViewChild('scroller')
+  @ViewChild('scroller', { static: true })
   private feed: ElementRef;
 
   constructor(public el: ElementRef) {}
