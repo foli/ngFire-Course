@@ -6,11 +6,13 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "",
-    authDomain: "",
-    databaseURL: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: ""
+    apiKey: "AIzaSyCO4I3XtMTrbSf4Vw2fqv4NYWe-c2K-p1U",
+    authDomain: "foli-sandbox-ef323.firebaseapp.com",
+    databaseURL: "https://foli-sandbox-ef323.firebaseio.com",
+    projectId: "foli-sandbox-ef323",
+    storageBucket: "foli-sandbox-ef323.appspot.com",
+    messagingSenderId: "543813793473",
+    appId: "1:543813793473:web:5904d9daed9abbf2d24640",
+    measurementId: "G-KJQMVNL5BE"
   }
 };
