@@ -3,7 +3,7 @@ import { Location } from "@angular/common";
 import {
   AngularFireStorage,
   AngularFireUploadTask
-} from "angularfire2/storage";
+} from "@angular/fire/storage";
 
 import { AuthService } from "../../core/auth.service";
 import { UserService } from "../user.service";
@@ -68,9 +68,9 @@ export class UserDashboardComponent implements OnInit {
       return alert("only images allowed");
     } else {
       this.task = this.storage.upload(path, file);
-      this.task.downloadURL().subscribe(url => {
-        this.userService.updateProfileData(this.user.displayName, url);
-      });
+    //   this.task.downloadURL().subscribe(url => {
+    //     this.userService.updateProfileData(this.user.displayName, url);
+    //   });
     }
   }
 

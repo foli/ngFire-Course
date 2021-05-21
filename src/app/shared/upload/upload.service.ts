@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core'
 import {
   AngularFirestore,
   AngularFirestoreCollection
-} from 'angularfire2/firestore'
-import { AngularFireStorage } from 'angularfire2/storage'
+} from '@angular/fire/firestore'
+import { AngularFireStorage } from '@angular/fire/storage'
 import { Observable } from 'rxjs'
-import { Md5 } from 'ts-md5'
 
 @Injectable()
 export class UploadService {
@@ -19,7 +18,7 @@ export class UploadService {
   ) {}
 
   uploadTask(path, file, meta, uploadType) {
-    const nameHash = Md5.hashStr(file.name + new Date().getTime())
+    const nameHash = file.name + new Date().getTime()
     const fileExt = file.type.split('/')[1]
     const name = `${nameHash}.${fileExt}`
 
@@ -31,20 +30,20 @@ export class UploadService {
     const ref = this.storage.ref(`${path}/${name}`)
     const task = ref.put(file, { customMetadata: newMeta })
 
-    this.downloadURL = task.downloadURL()
+    // this.downloadURL = task.downloadURL()
 
-    if (uploadType == true) {
-      // saves as collection
-      this.uploads = this.afs.collection(path)
-      this.downloadURL.subscribe(url => {
-        const data = { name, url }
-        this.uploads.add(data)
-      })
-    } else {
-      // saves as document field
-      this.downloadURL.subscribe(url => {
-        this.afs.doc(path).update({ url })
-      })
-    }
+    // if (uploadType == true) {
+    //   // saves as collection
+    //   this.uploads = this.afs.collection(path)
+    //   this.downloadURL.subscribe(url => {
+    //     const data = { name, url }
+    //     this.uploads.add(data)
+    //   })
+    // } else {
+    //   // saves as document field
+    //   this.downloadURL.subscribe(url => {
+    //     this.afs.doc(path).update({ url })
+    //   })
+    // }
   }
 }

@@ -12,7 +12,7 @@ import {
   styleUrls: ["./chat-detail.component.css"]
 })
 export class ChatDetailComponent implements OnInit {
-  @ViewChild("scroller") private feed: ElementRef;
+//   @ViewChild("scroller") private feed: ElementRef;
 
   constructor(public el: ElementRef) {}
 

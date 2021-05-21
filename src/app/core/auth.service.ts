@@ -4,15 +4,14 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 
 import * as firebase from "firebase/app";
-import { AngularFireAuth } from "angularfire2/auth";
+import { AngularFireAuth } from "@angular/fire/auth";
 import {
   AngularFirestore,
   AngularFirestoreDocument
-} from "angularfire2/firestore";
+} from "@angular/fire/firestore";
 
 import { Observable } from "rxjs";
 import "rxjs/add/operator/switchMap";
-import { Md5 } from "ts-md5/dist/md5";
 
 interface User {
   uid: string;
@@ -32,13 +31,13 @@ export class AuthService {
     private afs: AngularFirestore,
     private router: Router
   ) {
-    this.user = this.afAuth.authState.pipe(switchMap(user => {
-      if (user) {
-        return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-      } else {
-        return Observable.of(null);
-      }
-    }));
+    // this.user = this.afAuth.authState.pipe(switchMap(user => {
+    //   if (user) {
+    //     return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+    //   } else {
+    //     return Observable.of(null);
+    //   }
+    // }));
     this.afAuth.authState.subscribe(data => this.authState = data)
   }
 
@@ -119,11 +118,7 @@ export class AuthService {
       uid: user.uid,
       email: user.email || null,
       displayName: user.displayName,
-      photoURL:
-        user.photoURL ||
-        "https://www.gravatar.com/avatar/" +
-          Md5.hashStr(user.uid) +
-          "?d=identicon"
+      photoURL: user.photoURL || "https://www.gravatar.com/avatar/" + user.uid
     };
     return userRef.set(data, { merge: true });
   }

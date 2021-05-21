@@ -18,7 +18,7 @@ export class GalleryListComponent implements OnInit {
   }
 
   getImages() {
-    this.images = this.galleryService.getImages();
+    // this.images = this.galleryService.getImages();
     this.images.subscribe(res => console.log(res))
   }
 }

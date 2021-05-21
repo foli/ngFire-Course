@@ -3,9 +3,9 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
   AngularFirestoreDocument
-} from 'angularfire2/firestore'
+} from '@angular/fire/firestore'
 import { AuthService } from '../core/auth.service'
-import { AngularFireStorage } from 'angularfire2/storage'
+import { AngularFireStorage } from '@angular/fire/storage'
 
 @Injectable()
 export class GalleryService {
@@ -20,14 +20,14 @@ export class GalleryService {
 
   getImages() {
     const uid = this.auth.currentUserId
-    this.galleryCollection = this.afs.collection(`users/${uid}/gallery`)
-    return this.galleryCollection.snapshotChanges().map(actions => {
-      return actions.map(a => {
-        const data = a.payload.doc.data()
-        const id = a.payload.doc.id
-        return { id, ...data }
-      })
-    })
+    // this.galleryCollection = this.afs.collection(`users/${uid}/gallery`)
+    // return this.galleryCollection.snapshotChanges().map(actions => {
+    //   return actions.map(a => {
+    //     const data = a.payload.doc.data()
+    //     const id = a.payload.doc.id
+    //     return { id, ...data }
+    //   })
+    // })
   }
 
   getImage(id: string) {

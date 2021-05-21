@@ -5,7 +5,7 @@ import { Observable } from 'rxjs'
 
 import { PostService } from '../post.service'
 import { AuthService } from '../../core/auth.service'
-import { AngularFireStorage } from 'angularfire2/storage';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-post-list-item',
@@ -50,7 +50,7 @@ export class PostListItemComponent implements OnInit {
       return alert('only image files')
     } else {
       const task = this.storage.upload(path, file)
-      this.downloadURL = task.downloadURL()
+    //   this.downloadURL = task.downloadURL()
       this.uploadPercent = task.percentageChanges()
       console.log('Image Uploaded!')
       this.downloadURL.subscribe(url => (this.imageURL = url))

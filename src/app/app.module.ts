@@ -5,7 +5,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { environment } from "../environments/environment";
 
-import { AngularFireModule } from "angularfire2";
+import { AngularFireModule } from "@angular/fire";
 
 import { AppComponent } from "./app.component";
 import { MaterialModule } from ".//material.module";

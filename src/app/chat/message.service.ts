@@ -3,7 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
   AngularFirestoreDocument
-} from "angularfire2/firestore";
+} from "@angular/fire/firestore";
 
 import { AuthService } from "../core/auth.service";
 import { Message } from "./message.model";
