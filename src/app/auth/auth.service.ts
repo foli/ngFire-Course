@@ -19,7 +19,9 @@ interface User {
     displayName?: string;
 }
 
-@Injectable()
+@Injectable({
+    providedIn: "root",
+})
 export class AuthService {
     user: Observable<User>;
 

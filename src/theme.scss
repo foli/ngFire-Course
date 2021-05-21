@@ -1,13 +1,13 @@
+@use '~@angular/material' as mat;
 // add this to the `theme.scss` file
 
-@import '~@angular/material/theming';
-@include mat-core();
+@include mat.core();
 
-$ngFire-app-primary: mat-palette($mat-blue-grey, 900);
-$ngFire-app-accent:  mat-palette($mat-red, A200);
+$ngFire-app-primary: mat.define-palette(mat.$blue-grey-palette, 900);
+$ngFire-app-accent:  mat.define-palette(mat.$red-palette, A200);
 
-$ngFire-app-warn:    mat-palette($mat-red);
+$ngFire-app-warn:    mat.define-palette(mat.$red-palette);
 
-$ngFire-app-theme: mat-light-theme($ngFire-app-primary, $ngFire-app-accent, $ngFire-app-warn);
+$ngFire-app-theme: mat.define-light-theme($ngFire-app-primary, $ngFire-app-accent, $ngFire-app-warn);
 
-@include angular-material-theme($ngFire-app-theme);
+@include mat.all-component-themes($ngFire-app-theme);
