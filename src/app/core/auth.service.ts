@@ -1,3 +1,5 @@
+
+import {switchMap} from 'rxjs/operators';
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 
@@ -8,7 +10,7 @@ import {
   AngularFirestoreDocument
 } from "angularfire2/firestore";
 
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import "rxjs/add/operator/switchMap";
 import { Md5 } from "ts-md5/dist/md5";
 
@@ -30,13 +32,13 @@ export class AuthService {
     private afs: AngularFirestore,
     private router: Router
   ) {
-    this.user = this.afAuth.authState.switchMap(user => {
+    this.user = this.afAuth.authState.pipe(switchMap(user => {
       if (user) {
         return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
       } else {
         return Observable.of(null);
       }
-    });
+    }));
     this.afAuth.authState.subscribe(data => this.authState = data)
   }
 

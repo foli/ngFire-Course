@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core'
 
 import { Post } from '../post.model'
-import { Observable } from 'rxjs/Observable'
+import { Observable } from 'rxjs'
 
 import { PostService } from '../post.service'
 import { AuthService } from '../../core/auth.service'

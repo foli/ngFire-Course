@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable'
+import { Observable } from 'rxjs'
 
 import { Thread } from '../thread.model'
 import { ThreadService } from '../thread.service';

@@ -4,7 +4,7 @@ import {
   AngularFirestoreCollection
 } from 'angularfire2/firestore'
 import { AngularFireStorage } from 'angularfire2/storage'
-import { Observable } from 'rxjs/Observable'
+import { Observable } from 'rxjs'
 import { Md5 } from 'ts-md5'
 
 @Injectable()

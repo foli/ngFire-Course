@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 
 import { Post } from "../post.model";
 import { PostService } from "../post.service";

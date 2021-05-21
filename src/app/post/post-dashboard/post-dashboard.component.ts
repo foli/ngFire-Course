@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 
 import { AngularFireStorage } from "angularfire2/storage";
 

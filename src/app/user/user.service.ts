@@ -4,7 +4,7 @@ import {
   AngularFirestoreCollection,
   AngularFirestoreDocument
 } from "angularfire2/firestore";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 
 import { User } from "./user.model";
 import { AuthService } from "../core/auth.service";
