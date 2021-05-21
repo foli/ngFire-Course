@@ -4,8 +4,8 @@ import { Post } from '../post.model'
 import { Observable } from 'rxjs'
 
 import { PostService } from '../post.service'
-import { AuthService } from '../../core/auth.service'
 import { AngularFireStorage } from '@angular/fire/storage';
+import { AuthService } from "../../auth/auth.service";
 
 @Component({
   selector: 'app-post-list-item',

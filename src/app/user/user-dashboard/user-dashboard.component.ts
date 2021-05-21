@@ -5,9 +5,9 @@ import {
   AngularFireUploadTask
 } from "@angular/fire/storage";
 
-import { AuthService } from "../../core/auth.service";
 import { UserService } from "../user.service";
 import { User } from "../user.model";
+import { AuthService } from "src/app/auth/auth.service";
 
 @Component({
   selector: "app-user-dashboard",

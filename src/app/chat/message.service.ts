@@ -4,8 +4,8 @@ import {
   AngularFirestoreCollection,
   AngularFirestoreDocument
 } from "@angular/fire/firestore";
+import { AuthService } from "../auth/auth.service";
 
-import { AuthService } from "../core/auth.service";
 import { Message } from "./message.model";
 
 @Injectable()

@@ -10,7 +10,7 @@ import { Observable } from "rxjs";
 import { Thread } from "./thread.model";
 import { Message } from "./message.model";
 
-import { AuthService } from "../core/auth.service";
+import { AuthService } from "../auth/auth.service";
 import { MessageService } from "./message.service";
 
 @Injectable()

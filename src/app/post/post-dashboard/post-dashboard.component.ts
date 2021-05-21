@@ -4,9 +4,9 @@ import { Observable } from "rxjs";
 
 import { AngularFireStorage } from "@angular/fire/storage";
 
-import { AuthService } from "../../core/auth.service";
 import { PostService } from "../post.service";
 import { Post } from "../post.model";
+import { AuthService } from "../../auth/auth.service";
 
 @Component({
   selector: "app-post-dashboard",

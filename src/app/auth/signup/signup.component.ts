@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { SharedModule } from '../../shared/shared.module';
-import { AuthService } from '../../core/auth.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-signup',

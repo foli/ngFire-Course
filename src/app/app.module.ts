@@ -6,10 +6,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from "../environments/environment";
 
 import { AngularFireModule } from "@angular/fire";
+import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { AngularFireStorageModule } from "@angular/fire/storage";
+import { AngularFireAuthModule } from "@angular/fire/auth";
 
 import { AppComponent } from "./app.component";
 import { MaterialModule } from ".//material.module";
-import { CoreModule } from "./core/core.module";
 import { SharedModule } from './shared/shared.module'
 
 import { RoutingModule } from ".//routing.module";
@@ -25,8 +27,10 @@ import { RoutingGuard } from './routing.guard';
     BrowserAnimationsModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireAuthModule,
     MaterialModule,
-    CoreModule,
     SharedModule,
     RoutingModule,
     PostModule,

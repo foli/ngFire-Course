@@ -4,8 +4,8 @@ import {
   AngularFirestoreCollection,
   AngularFirestoreDocument
 } from '@angular/fire/firestore'
-import { AuthService } from '../core/auth.service'
 import { AngularFireStorage } from '@angular/fire/storage'
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class GalleryService {

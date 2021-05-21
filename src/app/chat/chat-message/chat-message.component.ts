@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core'
+import { AuthService } from "../../auth/auth.service";
 
 import { Message } from '../message.model'
 import { MessageService } from '../message.service';
-import { AuthService } from '../../core/auth.service';
 
 @Component({
   selector: 'app-chat-message',

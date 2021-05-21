@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 
-import { AuthService } from "../../core/auth.service";
 import { MessageService } from "../message.service";
 
 import { Message } from "../message.model";
 import { ThreadService } from '../thread.service';
+import { AuthService } from "../../auth/auth.service";
 
 @Component({
   selector: "app-chat-input",
