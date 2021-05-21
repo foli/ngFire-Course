@@ -2,7 +2,7 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 
-import * as firebase from "firebase/app";
+import firebase from "firebase/app";
 import { AngularFireAuth } from "@angular/fire/auth";
 import {
     AngularFirestore,
@@ -50,23 +50,23 @@ export class AuthService {
     }
 
     emailSignIn(email: string, password: string) {
-        return this.afAuth.auth
+        return this.afAuth
             .signInWithEmailAndPassword(email, password)
             .then(() => console.log("You have successfully signed in"))
             .catch(error => console.log(error.message));
     }
 
     emailSignUp(email: string, password: string) {
-        return this.afAuth.auth
+        return this.afAuth
             .createUserWithEmailAndPassword(email, password)
             .then(user => this.updateUserData(user))
             .then(() => console.log("Welcome, your account has been created!"))
-            .then(user => {
-                this.afAuth.auth.currentUser
-                    .sendEmailVerification()
-                    .then(() => console.log("We sent you an email verification"))
-                    .catch(error => console.log(error.message));
-            })
+            // .then(user => {
+            //     this.afAuth.auth.currentUser
+            //         .sendEmailVerification()
+            //         .then(() => console.log("We sent you an email verification"))
+            //         .catch(error => console.log(error.message));
+            // })
             .catch(error => console.log(error.message));
     }
 
@@ -79,7 +79,7 @@ export class AuthService {
     }
 
     signOut() {
-        return this.afAuth.auth.signOut().then(() => {
+        return this.afAuth.signOut().then(() => {
             this.router.navigate(["/"]);
         });
     }
@@ -103,7 +103,7 @@ export class AuthService {
     }
 
     private socialLogin(provider) {
-        return this.afAuth.auth.signInWithPopup(provider)
+        return this.afAuth.signInWithPopup(provider)
             .then(credential => {
                 this.updateUserData(credential.user)
             })
