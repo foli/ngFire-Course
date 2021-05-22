@@ -1,6 +1,12 @@
 {
   "name": "ng-fire",
+  "description": "A simple application build with Angular and Firebase for learning purposes.",
   "version": "0.0.0",
+  "author": {
+    "name": "Flavio Oliveira",
+    "email": "flavio@foli.dev",
+    "url": "https://foli.dev"
+  },
   "license": "MIT",
   "scripts": {
     "ng": "ng",
