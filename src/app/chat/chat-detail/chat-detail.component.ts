@@ -1,29 +1,22 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  AfterViewChecked
-} from "@angular/core";
+import { AfterViewChecked, Component, ElementRef } from "@angular/core";
 
 @Component({
-  selector: "app-chat-detail",
-  templateUrl: "./chat-detail.component.html",
-  styleUrls: ["./chat-detail.component.css"]
+    selector: "app-chat-detail",
+    templateUrl: "./chat-detail.component.html",
+    styleUrls: ["./chat-detail.component.css"]
 })
-export class ChatDetailComponent implements OnInit {
-//   @ViewChild("scroller") private feed: ElementRef;
+export class ChatDetailComponent implements AfterViewChecked {
+    //   @ViewChild("scroller") private feed: ElementRef;
 
-  constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef) { }
 
-  ngOnInit() {}
 
-  ngAfterViewChecked() {
-    this.scrollToBottom();
-  }
+    ngAfterViewChecked() {
+        this.scrollToBottom();
+    }
 
-  scrollToBottom(): void {
-    const scrollPane: any = this.el.nativeElement.querySelector(".chat-feed");
-    scrollPane.scrollTop = scrollPane.scrollHeight;
-  }
+    scrollToBottom(): void {
+        const scrollPane: any = this.el.nativeElement.querySelector(".chat-feed");
+        scrollPane.scrollTop = scrollPane.scrollHeight;
+    }
 }
