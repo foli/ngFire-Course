@@ -11,14 +11,13 @@ import { AngularFireStorageModule } from "@angular/fire/storage";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 
 import { AppComponent } from "./app.component";
-import { MaterialModule } from ".//material.module";
+import { MaterialModule } from "./app-material.module";
 import { SharedModule } from './shared/shared.module'
 
-import { RoutingModule } from ".//routing.module";
+import { RoutingModule } from "./app-routing.module";
 import { PostModule } from './post/post.module';
 import { GalleryModule } from './gallery/gallery.module';
 import { ChatModule } from './chat/chat.module';
-import { RoutingGuard } from './routing.guard';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,7 +36,7 @@ import { RoutingGuard } from './routing.guard';
     GalleryModule,
     ChatModule
   ],
-  providers: [RoutingGuard],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

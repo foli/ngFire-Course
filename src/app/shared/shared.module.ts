@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { MaterialModule } from "../material.module";
+import { MaterialModule } from "../app-material.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { FromNowPipe } from "./from-now.pipe";
 import { UploadComponent } from "./upload/upload.component";
