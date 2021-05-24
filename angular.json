@@ -4,9 +4,40 @@
     "newProjectRoot": "projects",
     "projects": {
         "ng-fire": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:class": {
+                    "skipTests": true
+                },
+                "@schematics/angular:component": {
+                    "inlineTemplate": false,
+                    "inlineStyle": false,
+                    "skipTests": true,
+                    "prefix": "app",
+                    "style": "css"
+                },
+                "@schematics/angular:directive": {
+                    "skipTests": true,
+                    "prefix": "app"
+                },
+                "@schematics/angular:guard": {
+                    "skipTests": true
+                },
+                "@schematics/angular:interceptor": {
+                    "skipTests": true
+                },
+                "@schematics/angular:module": {
+                },
+                "@schematics/angular:pipe": {
+                    "skipTests": true
+                },
+                "@schematics/angular:service": {
+                    "skipTests": true
+                }
+            },
             "root": "",
             "sourceRoot": "src",
-            "projectType": "application",
+            "prefix": "app",
             "architect": {
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
@@ -16,21 +47,16 @@
                         "main": "src/main.ts",
                         "tsConfig": "tsconfig.app.json",
                         "polyfills": "src/polyfills.ts",
-                        "assets": [
-                            "src/assets",
-                            "src/favicon.ico"
-                        ],
-                        "styles": [
-                            "src/styles.css",
-                            "src/theme.scss"
-                        ],
+                        "assets": ["src/assets", "src/favicon.ico"],
+                        "styles": ["src/styles.css", "src/theme.scss"],
                         "scripts": [],
                         "vendorChunk": true,
                         "extractLicenses": false,
                         "buildOptimizer": false,
                         "sourceMap": true,
                         "optimization": false,
-                        "namedChunks": true
+                        "namedChunks": true,
+                        "aot": false
                     },
                     "configurations": {
                         "production": {
@@ -62,7 +88,7 @@
                                 }
                             ]
                         },
-                        "development": {}
+                        "development": { "budgets": [{"type":"anyComponentStyle","maximumWarning":"6kb"}]}
                     },
                     "defaultConfiguration": "production"
                 },
@@ -88,44 +114,13 @@
                 "lint": {
                     "builder": "@angular-eslint/builder:lint",
                     "options": {
-                        "lintFilePatterns": [
-                            "src/**/*.ts",
-                            "src/**/*.html"
-                        ]
+                        "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
                     }
                 }
             }
         }
     },
     "defaultProject": "ng-fire",
-    "schematics": {
-        "@schematics/angular:class": {
-            "skipTests": true
-        },
-        "@schematics/angular:component": {
-            "inlineTemplate": false,
-            "inlineStyle": false,
-            "skipTests": true,
-            "prefix": "app",
-            "style": "css"
-        },
-        "@schematics/angular:directive": {
-            "skipTests": true,
-            "prefix": "app"
-        },
-        "@schematics/angular:guard": {
-            "skipTests": true
-        },
-        "@schematics/angular:module": {
-            "skipTests": true
-        },
-        "@schematics/angular:pipe": {
-            "skipTests": true
-        },
-        "@schematics/angular:service": {
-            "skipTests": true
-        }
-    },
     "cli": {
         "defaultCollection": "@angular-eslint/schematics"
     }
