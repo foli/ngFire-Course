@@ -10,6 +10,7 @@ import { environment } from "../environments/environment";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
+import { PagesModule } from "./pages/pages.module";
 
 @NgModule({
     declarations: [AppComponent],
@@ -21,6 +22,7 @@ import { AppRoutingModule } from "./app-routing.module";
         AngularFireStorageModule,
         AngularFireAuthModule,
         AppRoutingModule,
+        PagesModule,
     ],
     providers: [],
     bootstrap: [AppComponent],
