@@ -2,24 +2,20 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
-import { MaterialModule } from "../app-material.module";
-import { FromNowPipe } from "./from-now.pipe";
-import { UploadComponent } from "./upload/upload.component";
-import { UploadService } from "./upload/upload.service";
-import { NavbarComponent } from "./navbar/navbar.component";
+
+import { AppMaterialModule } from "../app-material.module";
+
+const sharedModules = [
+    AppMaterialModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+];
 
 @NgModule({
-    imports: [CommonModule, FormsModule, MaterialModule, ReactiveFormsModule, RouterModule],
-    exports: [
-        CommonModule,
-        FormsModule,
-        FromNowPipe,
-        MaterialModule,
-        NavbarComponent,
-        ReactiveFormsModule,
-        UploadComponent,
-    ],
-    declarations: [FromNowPipe, UploadComponent, NavbarComponent],
-    providers: [UploadService],
+    declarations: [],
+    exports: [...sharedModules],
+    imports: [],
 })
 export class SharedModule {}
