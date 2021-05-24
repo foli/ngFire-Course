@@ -7,17 +7,14 @@ import { AuthService } from "../auth.service";
 @Component({
     selector: "app-signin",
     templateUrl: "./signin.component.html",
-    styleUrls: ['./signin.component.css', '../auth.style.css']
+    styleUrls: ["./signin.component.css", "../auth.style.css"],
 })
 export class SigninComponent {
     signInForm: FormGroup;
+
     hide = true;
 
-    constructor(
-        public fb: FormBuilder,
-        public auth: AuthService,
-        private router: Router
-    ) {
+    constructor(public fb: FormBuilder, public auth: AuthService, private router: Router) {
         this.signInForm = this.fb.group({
             email: ["", [Validators.required, Validators.email]],
             password: [
@@ -25,27 +22,25 @@ export class SigninComponent {
                 [
                     Validators.pattern("^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$"),
                     Validators.minLength(6),
-                    Validators.maxLength(25)
-                ]
-            ]
+                    Validators.maxLength(25),
+                ],
+            ],
         });
     }
-
 
     get email() {
         return this.signInForm.get("email");
     }
+
     get password() {
         return this.signInForm.get("password");
     }
 
-    signIn() {
-        return this.auth
-            .emailSignIn(this.email.value, this.password.value)
-            .then(user => {
-                if (this.signInForm.valid) {
-                    this.router.navigate(["/"]);
-                }
-            });
-    }
+    // signIn() {
+    //     return this.auth.emailSignIn(this.email.value, this.password.value).then((user) => {
+    //         if (this.signInForm.valid) {
+    //             this.router.navigate(["/"]);
+    //         }
+    //     });
+    // }
 }

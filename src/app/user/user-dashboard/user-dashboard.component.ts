@@ -1,89 +1,86 @@
 import { Component, OnInit } from "@angular/core";
 import { Location } from "@angular/common";
-import {
-  AngularFireStorage,
-  AngularFireUploadTask
-} from "@angular/fire/storage";
+import { AngularFireStorage, AngularFireUploadTask } from "@angular/fire/storage";
 
+import { AuthService } from "src/app/auth/auth.service";
 import { UserService } from "../user.service";
 import { User } from "../user.model";
-import { AuthService } from "src/app/auth/auth.service";
 
 @Component({
-  selector: "app-user-dashboard",
-  templateUrl: "./user-dashboard.component.html",
-  styleUrls: ["./user-dashboard.component.css"]
+    selector: "app-user-dashboard",
+    templateUrl: "./user-dashboard.component.html",
+    styleUrls: ["./user-dashboard.component.css"],
 })
 export class UserDashboardComponent implements OnInit {
-  editing = false;
-  user: User;
+    editing = false;
 
-  task: AngularFireUploadTask;
+    user: User;
 
-  path: string
-  meta: object
-  uploadType: boolean
+    task: AngularFireUploadTask;
 
-  constructor(
-    private auth: AuthService,
-    private userService: UserService,
-    private storage: AngularFireStorage,
-    private location: Location
-  ) {}
+    path: string;
 
-  ngOnInit() {
-    this.getUser();
-    this.setUploadData()
-  }
+    meta: object;
 
-  setUploadData() {
-    const uid = this.auth.currentUserId
-    return this.auth.user.subscribe(user => {
-      this.path = `users/${uid}/gallery`
-      this.meta = { uploader: user.uid, website: 'https://foli.sk' }
-      // true means Collection upload
-      // false means document field upload
-      this.uploadType = true
-    })
-  }
-  getUser() {
-    return this.auth.user.subscribe(user => (this.user = user));
-  }
+    uploadType: boolean;
 
-  updateProfile() {
-    return this.userService.updateProfileData(
-      this.user.displayName,
-      this.user.photoURL
-    );
-  }
+    constructor(
+        private auth: AuthService,
+        private userService: UserService,
+        private storage: AngularFireStorage,
+        private location: Location,
+    ) {}
 
-  updateEmail() {
-    return this.userService.updateEmailData(this.user.email);
-  }
-
-  uploadPhotoURL(event): void {
-    const file = event.target.files[0];
-    const path = `users/${this.user.uid}/photos/${file.name}`;
-    if (file.type.split("/")[0] !== "image") {
-      return alert("only images allowed");
-    } else {
-      this.task = this.storage.upload(path, file);
-    //   this.task.downloadURL().subscribe(url => {
-    //     this.userService.updateProfileData(this.user.displayName, url);
-    //   });
+    ngOnInit() {
+        this.getUser();
+        this.setUploadData();
     }
-  }
 
-  updateUser() {
-    const data = {
-      website: this.user.website || null,
-      location: this.user.location || null,
-      bio: this.user.bio || null
-    };
-    return this.userService.updateUserData(data);
-  }
+    setUploadData() {
+        const uid = "change";
+        return this.auth.user.subscribe((user) => {
+            this.path = `users/${uid}/gallery`;
+            this.meta = { uploader: user.uid, website: "https://foli.sk" };
+            // true means Collection upload
+            // false means document field upload
+            this.uploadType = true;
+        });
+    }
 
-  goBack() {
-    this.location.back();
-  }
+    getUser() {
+        return this.auth.user.subscribe();
+    }
+
+    updateProfile() {
+        return this.userService.updateProfileData(this.user.displayName, this.user.photoURL);
+    }
+
+    updateEmail() {
+        return this.userService.updateEmailData(this.user.email);
+    }
+
+    uploadPhotoURL(event): void {
+        const file = event.target.files[0];
+        const path = `users/${this.user.uid}/photos/${file.name}`;
+        if (file.type.split("/")[0] !== "image") {
+            // return alert("only images allowed");
+        }
+        this.task = this.storage.upload(path, file);
+        //   this.task.downloadURL().subscribe(url => {
+        //     this.userService.updateProfileData(this.user.displayName, url);
+        //   });
+    }
+
+    updateUser() {
+        const data = {
+            website: this.user.website || null,
+            location: this.user.location || null,
+            bio: this.user.bio || null,
+        };
+        return this.userService.updateUserData(data);
+    }
+
+    goBack() {
+        this.location.back();
+    }
 }

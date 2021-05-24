@@ -5,13 +5,12 @@ import { ThreadService } from "../thread.service";
 @Component({
     selector: "app-chat-thread",
     templateUrl: "./chat-thread.component.html",
-    styleUrls: ["./chat-thread.component.css"]
+    styleUrls: ["./chat-thread.component.css"],
 })
 export class ChatThreadComponent {
     @Input() thread: Thread;
 
-    constructor(private threadService: ThreadService) { }
-
+    constructor(private threadService: ThreadService) {}
 
     delete(threadId) {
         this.threadService.deleteThread(threadId);

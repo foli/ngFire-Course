@@ -1,31 +1,38 @@
 <main>
-  <section>
-    <form [formGroup]="signInForm" (ngSubmit)="signIn()">
-      <h3>Welcome back</h3>
-      <p>Login to your account</p>
+    <section>
+        <form [formGroup]="signInForm" (ngSubmit)="signIn()">
+            <h3>Welcome back</h3>
+            <p>Login to your account</p>
 
-      <mat-form-field [formGroup]="signInForm">
-        <input matInput placeholder="Enter you email" [formControl]="email" required>
-        <mat-error *ngIf="email.valid">Not a valid email</mat-error>
-      </mat-form-field>
+            <mat-form-field [formGroup]="signInForm">
+                <input matInput placeholder="Enter you email" [formControl]="email" required />
+                <mat-error *ngIf="email.valid">Not a valid email</mat-error>
+            </mat-form-field>
 
-      <mat-form-field [formGroup]="signInForm">
-        <input matInput placeholder="Enter you password" [type]="hide ? 'password' : 'text'" [formControl]="password" required>
-        <mat-icon matSuffix (click)="hide = !hide">{{ hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-        <mat-hint align="end">
-          <a routerLink="/reset-password">Forgot password?</a>
-        </mat-hint>
-        <mat-error *ngIf="password.valid">Not a valid password</mat-error>
-      </mat-form-field>
+            <mat-form-field [formGroup]="signInForm">
+                <input
+                    matInput
+                    placeholder="Enter you password"
+                    [type]="hide ? 'password' : 'text'"
+                    [formControl]="password"
+                    required
+                />
+                <mat-icon matSuffix (click)="hide = !hide">{{
+                    hide ? "visibility" : "visibility_off"
+                }}</mat-icon>
+                <mat-hint align="end">
+                    <a routerLink="/reset-password">Forgot password?</a>
+                </mat-hint>
+                <mat-error *ngIf="password.valid">Not a valid password</mat-error>
+            </mat-form-field>
 
-      <button mat-raised-button type="submit" color="accent">Sign in</button>
+            <button mat-raised-button type="submit" color="accent">Sign in</button>
 
-      <p>Tired of yet another password? Continue with:</p>
-      <button mat-raised-button (click)="auth.googleLogin()">Google</button>
-      <button mat-raised-button (click)="auth.twitterLogin()">Twitter</button>
-      <button mat-raised-button  (click)="auth.facebookLogin()">Facebook</button>
-      <button mat-raised-button (click)="auth.githubLogin()">Github</button>
-
-    </form>
-  </section>
+            <p>Tired of yet another password? Continue with:</p>
+            <button mat-raised-button (click)="auth.googleLogin()">Google</button>
+            <button mat-raised-button (click)="auth.twitterLogin()">Twitter</button>
+            <button mat-raised-button (click)="auth.facebookLogin()">Facebook</button>
+            <button mat-raised-button (click)="auth.githubLogin()">Github</button>
+        </form>
+    </section>
 </main>

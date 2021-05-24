@@ -1,10 +1,10 @@
 <mat-list>
-  <mat-list-item>
-    <img matListAvatar [src]="thread.avatar || '//:0'">
-    <p mat-line>{{thread.creator}}</p>
-    <p mat-line>{{thread.lastMessage}}</p>
-    <button mat-icon-button (click)="delete(thread.id)">
-      <mat-icon>delete</mat-icon>
-    </button>
-  </mat-list-item>
+    <mat-list-item>
+        <img matListAvatar [src]="thread.avatar || '//:0'" />
+        <p mat-line>{{ thread.creator }}</p>
+        <p mat-line>{{ thread.lastMessage }}</p>
+        <button mat-icon-button (click)="delete(thread.id)">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </mat-list-item>
 </mat-list>

@@ -4,20 +4,20 @@ import { Observable } from "rxjs";
 import { UserService } from "../user.service";
 
 @Component({
-  selector: "app-user-list",
-  templateUrl: "./user-list.component.html",
-  styleUrls: ["./user-list.component.css"]
+    selector: "app-user-list",
+    templateUrl: "./user-list.component.html",
+    styleUrls: ["./user-list.component.css"],
 })
 export class UserListComponent implements OnInit {
-  users: Observable<any[]>;
+    users: Observable<any[]>;
 
-  constructor(private userService: UserService) { }
+    constructor(private userService: UserService) {}
 
-  ngOnInit() {
-    this.getUsers();
-  }
+    ngOnInit() {
+        this.getUsers();
+    }
 
-  getUsers() {
-    this.users = this.userService.getUsers();
-  }
+    getUsers() {
+        this.users = this.userService.getUsers();
+    }
 }

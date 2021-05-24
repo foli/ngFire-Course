@@ -10,19 +10,19 @@ import { PostListComponent } from "./post-list/post-list.component";
 import { PostListItemComponent } from "./post-list-item/post-list-item.component";
 
 const routes: Routes = [
-  { path: "blog", component: PostListComponent },
-  { path: "blog/:id", component: PostDetailComponent }
+    { path: "blog", component: PostListComponent },
+    { path: "blog/:id", component: PostDetailComponent },
 ];
 
 @NgModule({
-  imports: [SharedModule, RouterModule.forChild(routes)],
-  declarations: [
-    PostDashboardComponent,
-    PostDetailComponent,
-    PostListComponent,
-    PostListItemComponent
-  ],
-  exports: [PostDashboardComponent],
-  providers: [PostService]
+    imports: [SharedModule, RouterModule.forChild(routes)],
+    declarations: [
+        PostDashboardComponent,
+        PostDetailComponent,
+        PostListComponent,
+        PostListItemComponent,
+    ],
+    exports: [PostDashboardComponent],
+    providers: [PostService],
 })
 export class PostModule {}

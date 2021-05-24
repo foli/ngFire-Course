@@ -12,30 +12,30 @@ import { UserListItemComponent } from "./user-list-item/user-list-item.component
 import { RoutingGuard } from "../routing.guard";
 
 const routes: Routes = [
-  {
-    path: "me",
-    component: UserDashboardComponent,
-    canActivate: [RoutingGuard],
-    data: { title: "Dashboard" }
-  },
+    {
+        path: "me",
+        component: UserDashboardComponent,
+        canActivate: [RoutingGuard],
+        data: { title: "Dashboard" },
+    },
 
-  { path: "users", component: UserListComponent, data: { title: "Users" } },
-  {
-    path: "users/:id",
-    component: UserDetailComponent,
-    data: { title: "Profile" }
-  }
+    { path: "users", component: UserListComponent, data: { title: "Users" } },
+    {
+        path: "users/:id",
+        component: UserDetailComponent,
+        data: { title: "Profile" },
+    },
 ];
 
 @NgModule({
-  imports: [SharedModule, RouterModule.forChild(routes), PostModule],
-  exports: [UserListItemComponent],
-  declarations: [
-    UserDashboardComponent,
-    UserDetailComponent,
-    UserListComponent,
-    UserListItemComponent
-  ],
-  providers: [UserService]
+    imports: [SharedModule, RouterModule.forChild(routes), PostModule],
+    exports: [UserListItemComponent],
+    declarations: [
+        UserDashboardComponent,
+        UserDetailComponent,
+        UserListComponent,
+        UserListItemComponent,
+    ],
+    providers: [UserService],
 })
 export class UserModule {}

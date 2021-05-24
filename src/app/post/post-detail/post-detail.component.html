@@ -1,13 +1,13 @@
 <mat-card *ngIf="post">
-
-  <div>
-    <img src="{{post.image}}" alt="{{post.title}}" [hidden]="post.image === null">
-    <mat-card-content>
-      <mat-card-title>{{post.title}}</mat-card-title>
-      <mat-card-subtitle>posted by {{ post.author }} {{ post.published | fromNow }} </mat-card-subtitle>
-      <p>{{ post.id }}</p>
-      <p>{{ post.content }}</p>
-    </mat-card-content>
-  </div>
-
+    <div>
+        <img src="{{ post.image }}" alt="{{ post.title }}" [hidden]="post.image === null" />
+        <mat-card-content>
+            <mat-card-title>{{ post.title }}</mat-card-title>
+            <mat-card-subtitle
+                >posted by {{ post.author }} {{ post.published | fromNow }}
+            </mat-card-subtitle>
+            <p>{{ post.id }}</p>
+            <p>{{ post.content }}</p>
+        </mat-card-content>
+    </div>
 </mat-card>

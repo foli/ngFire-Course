@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-  AngularFirestoreDocument
+    AngularFirestore,
+    AngularFirestoreCollection,
+    AngularFirestoreDocument,
 } from "@angular/fire/firestore";
 import { AuthService } from "../auth/auth.service";
 
@@ -10,37 +10,37 @@ import { Message } from "./message.model";
 
 @Injectable()
 export class MessageService {
-  messagesCollection: AngularFirestoreCollection<Message>;
-  messageDoc: AngularFirestoreDocument<Message>;
+    messagesCollection: AngularFirestoreCollection<Message>;
 
-  constructor(private afs: AngularFirestore, private auth: AuthService) {}
+    messageDoc: AngularFirestoreDocument<Message>;
 
-  getMessages(channelId) {
-    this.messagesCollection = this.afs.collection(
-      `chats/${channelId}/messages`,
-      ref => ref.orderBy("timestamp")
-    );
-    return this.messagesCollection.valueChanges();
-  }
+    constructor(private afs: AngularFirestore, private auth: AuthService) {}
 
-  sendMessage(
-    channelId: string,
-    photoURL: string,
-    sender: string,
-    senderId: string,
-    content: string
-  ) {
-    const data = {
-      photoURL,
-      sender,
-      senderId,
-      content,
-      timestamp: new Date()
-    };
-    return this.afs
-      .collection(`chats/${channelId}/messages`)
-      .add(data)
-      .then(() => console.log("Message sent"))
-      .catch(error => console.log(error.message));
-  }
+    getMessages(channelId) {
+        this.messagesCollection = this.afs.collection(`chats/${channelId}/messages`, (ref) =>
+            ref.orderBy("timestamp"),
+        );
+        return this.messagesCollection.valueChanges();
+    }
+
+    // sendMessage(
+    //     channelId: string,
+    //     photoURL: string,
+    //     sender: string,
+    //     senderId: string,
+    //     content: string,
+    // ) {
+    //     const data = {
+    //         photoURL,
+    //         sender,
+    //         senderId,
+    //         content,
+    //         timestamp: new Date(),
+    //     };
+    //     return this.afs
+    //         .collection(`chats/${channelId}/messages`)
+    //         .add(data)
+    //         .then(() => console.log("Message sent"))
+    //         .catch((error) => console.log(error.message));
+    // }
 }

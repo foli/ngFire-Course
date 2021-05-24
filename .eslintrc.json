@@ -16,7 +16,9 @@
             },
             "extends": [
                 "plugin:@angular-eslint/recommended",
-                "plugin:@angular-eslint/template/process-inline-templates"
+                "plugin:@angular-eslint/template/process-inline-templates",
+                "airbnb-typescript/base",
+                "plugin:prettier/recommended"
             ],
             "rules": {
                 "@angular-eslint/component-selector": [
@@ -34,7 +36,9 @@
                         "style": "camelCase",
                         "type": "attribute"
                     }
-                ]
+                ],
+                "import/prefer-default-export": "off",
+                "no-console": "off"
             }
         },
         {
@@ -45,6 +49,25 @@
                 "plugin:@angular-eslint/template/recommended"
             ],
             "rules": {}
+        },
+        {
+            "files": [
+                "*.html"
+            ],
+            "excludedFiles": [
+                "*inline-template-*.component.html"
+            ],
+            "extends": [
+                "plugin:prettier/recommended"
+            ],
+            "rules": {
+                "prettier/prettier": [
+                    "error",
+                    {
+                        "parser": "angular"
+                    }
+                ]
+            }
         }
     ]
 }

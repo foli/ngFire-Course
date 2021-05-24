@@ -1,8 +1,8 @@
 <mat-card *ngIf="image">
-  <img [src]="image.url" alt="{{image.name}}">
-  <mat-card-actions align="end">
-    <button mat-icon-button (click)="delete()">
-      <mat-icon>delete</mat-icon>
-    </button>
-  </mat-card-actions>
+    <img [src]="image.url" alt="{{ image.name }}" />
+    <mat-card-actions align="end">
+        <button mat-icon-button (click)="delete()">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </mat-card-actions>
 </mat-card>
