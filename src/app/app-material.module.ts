@@ -8,6 +8,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatToolbarModule } from "@angular/material/toolbar";
 
@@ -20,6 +21,7 @@ const sharedModules = [
     MatListModule,
     MatMenuModule,
     MatProgressBarModule,
+    MatSidenavModule,
     MatSlideToggleModule,
     MatToolbarModule,
 ];

@@ -1,0 +1,12 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <button mat-icon-button class="menu-icon" aria-label="Menu" (click)="navSrv.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span>{{ title }}</span>
+        <span class="spacer"></span>
+        <div>
+            <button mat-raised-button routerLink="/auth/signin">Sign in</button>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>

@@ -1,1 +1,7 @@
-<p>layout works!</p>
+<mat-sidenav-container (backdropClick)="navSrv.toggle()">
+    <mat-sidenav #sidenav (keydown.escape)="navSrv.toggle()" mode="push"> </mat-sidenav>
+
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

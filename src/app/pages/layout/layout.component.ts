@@ -1,4 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatSidenav } from "@angular/material/sidenav";
+import { SidenavService } from "src/app/navigation/sidenav.service";
 
 @Component({
     selector: "app-layout",
@@ -6,7 +8,11 @@ import { Component, OnInit } from "@angular/core";
     styleUrls: ["./layout.component.css"],
 })
 export class LayoutComponent implements OnInit {
-    constructor() {}
+    @ViewChild("sidenav", { static: true }) public sidenav: MatSidenav;
 
-    ngOnInit(): void {}
+    constructor(public navSrv: SidenavService) {}
+
+    ngOnInit(): void {
+        this.navSrv.get(this.sidenav);
+    }
 }
