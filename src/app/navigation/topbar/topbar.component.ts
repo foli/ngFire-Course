@@ -1,4 +1,6 @@
 import { Component, Input } from "@angular/core";
+import { AngularFireAuth } from "@angular/fire/auth";
+import { AuthService } from "src/app/auth/auth.service";
 
 import { SidenavService } from "../sidenav.service";
 
@@ -10,5 +12,9 @@ import { SidenavService } from "../sidenav.service";
 export class TopbarComponent {
     @Input() title: string = "ngFire";
 
-    constructor(public navSrv: SidenavService) {}
+    constructor(
+        public afAuth: AngularFireAuth,
+        public authService: AuthService,
+        public navSrv: SidenavService,
+    ) {}
 }

@@ -3,6 +3,12 @@
     "ignorePatterns": [
         "projects/**/*"
     ],
+    "settings": {
+        "import/core-modules": [
+            "rxjs/operators",
+            "firebase/app"
+        ]
+    },
     "overrides": [
         {
             "files": [
@@ -38,7 +44,7 @@
                     }
                 ],
                 "import/prefer-default-export": "off",
-                "no-console": "off"
+                "no-console": "off" // DELETE ME
             }
         },
         {

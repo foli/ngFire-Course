@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { AngularFireAuth } from "@angular/fire/auth";
 
 import { AuthService } from "../auth.service";
 
@@ -14,15 +14,25 @@ export class SigninComponent {
 
     hide = true;
 
-    constructor(public fb: FormBuilder, public auth: AuthService, private router: Router) {
+    constructor(
+        public fb: FormBuilder,
+        public afAuth: AngularFireAuth,
+        public authService: AuthService,
+    ) {
         this.signInForm = this.fb.group({
-            email: ["", [Validators.required, Validators.email]],
+            email: [
+                "",
+                [
+                    Validators.required,
+                    Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$"),
+                ],
+            ],
             password: [
                 "",
                 [
+                    Validators.required,
                     Validators.pattern("^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$"),
                     Validators.minLength(6),
-                    Validators.maxLength(25),
                 ],
             ],
         });
@@ -36,11 +46,15 @@ export class SigninComponent {
         return this.signInForm.get("password");
     }
 
-    // signIn() {
-    //     return this.auth.emailSignIn(this.email.value, this.password.value).then((user) => {
-    //         if (this.signInForm.valid) {
-    //             this.router.navigate(["/"]);
-    //         }
-    //     });
-    // }
+    public google() {
+        return this.authService.google();
+    }
+
+    public signIn() {
+        return this.authService.emailSignIn(this.email.value, this.password.value);
+    }
+
+    public sendLink() {
+        return this.authService.sendEmailLink(this.email.value);
+    }
 }

@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
 
 import { AuthService } from "../auth.service";
 
@@ -14,15 +13,21 @@ export class SignupComponent {
 
     hide = true;
 
-    constructor(public fb: FormBuilder, public auth: AuthService, private router: Router) {
+    constructor(public fb: FormBuilder, public authService: AuthService) {
         this.signUpForm = this.fb.group({
-            email: ["", [Validators.required, Validators.email]],
+            email: [
+                "",
+                [
+                    Validators.required,
+                    Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
+                ],
+            ],
             password: [
                 "",
                 [
+                    Validators.required,
                     Validators.pattern("^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$"),
                     Validators.minLength(6),
-                    Validators.maxLength(25),
                 ],
             ],
         });
@@ -36,11 +41,15 @@ export class SignupComponent {
         return this.signUpForm.get("password");
     }
 
-    // signUp() {
-    //     return this.auth.emailSignUp(this.email.value, this.password.value).then((user) => {
-    //         if (this.signUpForm.valid) {
-    //             this.router.navigate(["/"]);
-    //         }
-    //     });
-    // }
+    public google() {
+        return this.authService.google();
+    }
+
+    public signUp() {
+        return this.authService.emailSignUp(this.email.value, this.password.value);
+    }
+
+    public sendLink() {
+        return this.authService.sendEmailLink(this.email.value);
+    }
 }

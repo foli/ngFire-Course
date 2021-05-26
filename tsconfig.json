@@ -19,7 +19,11 @@
     },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,
+        "forceConsistentCasingInFileNames": true,
         "fullTemplateTypeCheck": true,
         "preserveWhitespaces": true,
+        "strictTemplates": true,
+        "noImplicitReturns": true,
+        "strictInjectionParameters": true,
     }
 }

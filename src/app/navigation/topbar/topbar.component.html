@@ -5,8 +5,11 @@
         </button>
         <span>{{ title }}</span>
         <span class="spacer"></span>
-        <div>
-            <button mat-raised-button routerLink="/auth/signin">Sign in</button>
+        <div *ngIf="afAuth.user | async as user; else showLogin">
+            <button mat-raised-button (click)="authService.signOut()">Sign out</button>
         </div>
+        <ng-template #showLogin>
+            <button mat-raised-button routerLink="/auth/signin">Sign in</button>
+        </ng-template>
     </mat-toolbar-row>
 </mat-toolbar>

@@ -1,14 +1,20 @@
 <main>
     <section>
-        <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
-            <h3>Welcome to ngFire</h3>
-            <p>Lets get started</p>
+        <h2>Create your account</h2>
+        <p>
+            Already have an account?
+            <a routerLink="../signin">Click here to sign in.</a>
+        </p>
 
+        <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
             <mat-form-field [formGroup]="signUpForm">
                 <input matInput placeholder="Enter you email" [formControl]="email" required />
-                <mat-error *ngIf="email.valid">Not a valid email</mat-error>
+                <mat-error *ngIf="email.invalid && (email.dirty || email.touched)"
+                    >Not a valid email
+                </mat-error>
             </mat-form-field>
 
+            <br />
             <mat-form-field [formGroup]="signUpForm">
                 <input
                     matInput
@@ -17,13 +23,32 @@
                     [formControl]="password"
                     required
                 />
+
                 <mat-icon matSuffix (click)="hide = !hide">{{
                     hide ? "visibility" : "visibility_off"
                 }}</mat-icon>
-                <mat-error *ngIf="password.valid">Not a valid password</mat-error>
+                <mat-hint *ngIf="password.dirty"
+                    >Use capital and lowercase letters & numbers
+                </mat-hint>
+                <mat-error *ngIf="password.invalid && (password.dirty || password.touched)"
+                    >Not a valid password</mat-error
+                >
             </mat-form-field>
-
-            <button mat-raised-button type="submit" color="accent">Sign up</button>
+            <br />
+            <button
+                mat-raised-button
+                type="submit"
+                [disabled]="email.invalid || password.invalid"
+                color="accent"
+            >
+                Sign up
+            </button>
         </form>
+
+        <button mat-raised-button (click)="sendLink()" [disabled]="email.invalid" color="accent">
+            Sign up without password
+        </button>
+        <hr />
+        <button mat-raised-button (click)="google()">Continue with Google</button>
     </section>
 </main>
