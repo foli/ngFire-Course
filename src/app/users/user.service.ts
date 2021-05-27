@@ -5,8 +5,6 @@ import {
     AngularFirestoreDocument,
 } from "@angular/fire/firestore";
 
-import { AuthService } from "../auth/auth.service";
-
 import { User } from "./user.model";
 
 @Injectable({
@@ -17,7 +15,7 @@ export class UserService {
 
     userDoc: AngularFirestoreDocument<User>;
 
-    constructor(private afs: AngularFirestore, private authService: AuthService) {
+    constructor(private afs: AngularFirestore) {
         this.userCollection = this.afs.collection("users");
     }
 
@@ -27,6 +25,6 @@ export class UserService {
 
     getUser(uid: string) {
         this.userDoc = this.afs.doc<User>(`users/${uid}`);
-        return this.userDoc.valueChanges({ idField: "uid" });
+        return this.userDoc.valueChanges();
     }
 }

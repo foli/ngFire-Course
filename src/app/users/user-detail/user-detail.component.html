@@ -4,4 +4,7 @@
     <h1>{{ user.displayName }}</h1>
     <p>{{ user.email }}</p>
     <p>{{ user.uid }}</p>
+    <p>
+        <small>joined {{ user.joined | fromNow }}</small>
+    </p>
 </main>
