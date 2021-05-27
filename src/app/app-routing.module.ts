@@ -5,6 +5,10 @@ import { NotFoundComponent } from "./pages/not-found/not-found.component";
 const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full" },
     {
+        path: "users",
+        loadChildren: () => import("./users/users.module").then((m) => m.UserModule),
+    },
+    {
         path: "auth",
         loadChildren: () => import("./auth/auth.module").then((m) => m.AuthModule),
     },

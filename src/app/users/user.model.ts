@@ -3,9 +3,13 @@ export class User {
 
     email: string;
 
-    photoURL?: string;
+    photoURL: string;
 
     displayName?: string;
+
+    joined: string;
+
+    role: string[];
 
     website?: string;
 

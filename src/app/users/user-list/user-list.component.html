@@ -1,0 +1,4 @@
+<mat-list>
+    <div mat-subheader>User list</div>
+    <app-user-list-item *ngFor="let user of users | async" [user]="user"></app-user-list-item>
+</mat-list>

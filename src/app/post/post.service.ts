@@ -20,15 +20,9 @@ export class PostService {
         );
     }
 
-    // getPosts(): Observable<Post[]> {
-    //     return this.postsCollection.snapshotChanges().map((actions) => {
-    //         return actions.map((a) => {
-    //             const data = a.payload.doc.data() as Post;
-    //             const { id } = a.payload.doc;
-    //             return { id, ...data };
-    //         });
-    //     });
-    // }
+    getPosts() {
+        return this.postsCollection.valueChanges();
+    }
 
     getPost(id: string) {
         return this.afs.doc<Post>(`posts/${id}`);

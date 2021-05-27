@@ -1,0 +1,6 @@
+<mat-list-item *ngIf="user" routerLink="{{ user.uid }}">
+    <img [src]="user.photoURL" alt="{{ user.displayName }}" />
+    <div mat-line>{{ user.displayName }}</div>
+    <div mat-line>{{ user.email }}</div>
+</mat-list-item>
+<mat-divider></mat-divider>
