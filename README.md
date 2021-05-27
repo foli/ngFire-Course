@@ -9,7 +9,16 @@ A simple application build with Angular and Firebase for learning purposes.
     -   [x] social media logins
     -   [x] passwordless auth
     -   [x] reset password
+    -   [ ] link providers
+    -   [ ] annonymous accounts
 -   [ ] user management
+    -   [x] user list
+    -   [x] user detail
+    -   [ ] user settings (WIP)
+        -   [ ] update email
+        -   [ ] update profile (displayName, photoURL)
+        -   [ ] update Firestore data
+        -   [ ] user roles
 -   [ ] blogging
 -   [ ] comments
 -   [ ] photo gallery
@@ -53,3 +62,4 @@ export const environment = {
     baseURL: "http://localhost:4200",
 };
 ```
+Change `.firebaserc` project name
