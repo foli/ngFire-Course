@@ -1,0 +1,13 @@
+<main>
+    <section class="header"></section>
+    <section class="content">
+        <mat-list role="list">
+            <mat-list-item *ngFor="let link of links">
+                <div mat-line role="listitem" [routerLink]="link.url" (click)="close()">
+                    {{ link.name }}
+                </div>
+            </mat-list-item>
+        </mat-list>
+    </section>
+    <section class="footer"></section>
+</main>

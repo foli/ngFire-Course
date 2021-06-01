@@ -1,5 +1,7 @@
-<mat-sidenav-container (backdropClick)="navSrv.toggle()">
-    <mat-sidenav #sidenav (keydown.escape)="navSrv.toggle()" mode="push"> </mat-sidenav>
+<mat-sidenav-container (backdropClick)="toggle()">
+    <mat-sidenav #sidenav (keydown.escape)="toggle()" mode="push">
+        <app-sidebar></app-sidebar>
+    </mat-sidenav>
 
     <mat-sidenav-content>
         <router-outlet></router-outlet>

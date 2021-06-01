@@ -10,9 +10,13 @@ import { SidenavService } from "src/app/navigation/sidenav.service";
 export class LayoutComponent implements OnInit {
     @ViewChild("sidenav", { static: true }) public sidenav: MatSidenav;
 
-    constructor(public navSrv: SidenavService) {}
+    constructor(private sidenavService: SidenavService) {}
 
     ngOnInit(): void {
-        this.navSrv.get(this.sidenav);
+        this.sidenavService.get(this.sidenav);
+    }
+
+    toggle() {
+        this.sidenavService.toggle();
     }
 }

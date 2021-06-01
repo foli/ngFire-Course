@@ -1,7 +1,7 @@
-import firebaseConfig from "./firebase";
+import firebase from "./firebase";
 
 export const environment = {
     production: false,
-    firebase: firebaseConfig,
+    firebase,
     baseURL: "http://localhost:4200",
 };

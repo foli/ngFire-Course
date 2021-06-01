@@ -1,0 +1,12 @@
+main {
+    height: 100vh;
+}
+.header {
+    height: 20vh;
+}
+.content {
+    height: 70vh;
+}
+.footer {
+    height: 10vh;
+}

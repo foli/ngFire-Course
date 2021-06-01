@@ -3,5 +3,10 @@ mat-sidenav-container {
     height: 100%;
 }
 mat-sidenav {
-    width: 30%;
+    width: 75%;
+}
+@media screen and (min-width: 480px) {
+    mat-sidenav {
+        width: 30%;
+    }
 }

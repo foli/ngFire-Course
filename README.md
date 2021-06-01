@@ -32,7 +32,7 @@ A simple application build with Angular and Firebase for learning purposes.
 Create `src/environments/firebase.ts` file and add your firebase config
 
 ```ts
-const firebaseConfig = {
+const firebase = {
     apiKey: "",
     authDomain: "",
     projectId: "",
@@ -41,7 +41,7 @@ const firebaseConfig = {
     appId: "",
     measurementId: "",
 };
-export default firebaseConfig;
+export default firebase;
 ```
 
 Add it to `.gitignore`
@@ -53,13 +53,14 @@ echo "src/environments/firebase.ts" >> .gitignore
 Import it in on the environment
 
 ```ts
-import firebaseConfig from "./firebase";
+import firebase from "./firebase";
 
 export const environment = {
     production: false,
-    firebase: firebaseConfig,
+    firebase,
     // for development only | link accordingly on prod
     baseURL: "http://localhost:4200",
 };
 ```
+
 Change `.firebaserc` project name
