@@ -1,6 +1,4 @@
 import { Component, Input } from "@angular/core";
-import { AngularFireAuth } from "@angular/fire/auth";
-import { AuthService } from "src/app/auth/auth.service";
 
 import { SidenavService } from "../sidenav.service";
 
@@ -12,9 +10,9 @@ import { SidenavService } from "../sidenav.service";
 export class TopbarComponent {
     @Input() title: string = "ngFire";
 
-    constructor(
-        public afAuth: AngularFireAuth,
-        public authService: AuthService,
-        public navSrv: SidenavService,
-    ) {}
+    constructor(private sidenavService: SidenavService) {}
+
+    toggle() {
+        this.sidenavService.toggle();
+    }
 }

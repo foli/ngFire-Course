@@ -1,6 +1,6 @@
 <main>
-    <section class="header"></section>
-    <section class="content">
+    <section>
+        <header></header>
         <mat-list role="list">
             <mat-list-item *ngFor="let link of links">
                 <div mat-line role="listitem" [routerLink]="link.url" (click)="close()">
@@ -9,5 +9,20 @@
             </mat-list-item>
         </mat-list>
     </section>
-    <section class="footer"></section>
+    <mat-toolbar color="primary">
+        <mat-toolbar-row>
+            <mat-list role="list" *ngIf="afAuth.user | async as user; else showLogin">
+                <div mat-line aria-label="Sign Out" (click)="signOut()">Sign Out</div>
+            </mat-list>
+            <ng-template #showLogin>
+                <mat-list role="list">
+                    <div mat-line aria-label="Sign In" (click)="signIn()">Sign In</div>
+                </mat-list>
+            </ng-template>
+            <span class="spacer"></span>
+            <button mat-icon-button aria-label="Settings" (click)="goToSettings()">
+                <mat-icon>settings</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
 </main>

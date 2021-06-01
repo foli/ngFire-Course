@@ -1,12 +1,14 @@
 main {
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
-.header {
+header {
     height: 20vh;
 }
-.content {
-    height: 70vh;
+section {
+    flex: 1 0 auto;
 }
-.footer {
-    height: 10vh;
+mat-toolbar {
+    flex-shrink: 0;
 }

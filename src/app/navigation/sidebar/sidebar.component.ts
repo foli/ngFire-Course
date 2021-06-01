@@ -1,4 +1,8 @@
 import { Component } from "@angular/core";
+import { Router } from "@angular/router";
+import { AngularFireAuth } from "@angular/fire/auth";
+
+import { AuthService } from "src/app/auth/auth.service";
 import { SidenavService } from "../sidenav.service";
 
 interface Link {
@@ -19,13 +23,29 @@ export class SidebarComponent {
         },
     ];
 
-    constructor(private sidenavService: SidenavService) {}
+    constructor(
+        private route: Router,
+        public afAuth: AngularFireAuth,
+        private authService: AuthService,
+        private sidenavService: SidenavService,
+    ) {}
 
     close() {
         this.sidenavService.close();
     }
 
-    toggle() {
-        this.sidenavService.toggle();
+    signOut(): void {
+        this.authService.signOut();
+        this.close();
+    }
+
+    signIn(): void {
+        this.route.navigate(["auth", "signin"]);
+        this.close();
+    }
+
+    goToSettings(): void {
+        this.route.navigate(["settings"]);
+        this.close();
     }
 }
