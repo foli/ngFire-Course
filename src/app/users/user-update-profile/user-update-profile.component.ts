@@ -56,7 +56,7 @@ export class UserUpdateProfileComponent implements OnInit, OnDestroy {
         const url = await this.downloadURL.toPromise();
         const profile = {
             displayName: this.displayName.value,
-            photoURL: url,
+            photoURL: url || this.user.photoURL,
         };
         return this.userService.changeProfile(profile);
     }
