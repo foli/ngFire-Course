@@ -5,19 +5,23 @@ import { PostModule } from "../post/post.module";
 import { SharedModule } from "../shared/shared.module";
 import { UsersRoutingModule } from "./users-routing.module";
 
+import { UserDashboardComponent } from "./user-dashboard/user-dashboard.component";
 import { UserDetailComponent } from "./user-detail/user-detail.component";
 import { UserListComponent } from "./user-list/user-list.component";
 import { UserListItemComponent } from "./user-list-item/user-list-item.component";
-import { UserEmailUpdateComponent } from "./user-email-update/user-email-update.component";
+import { UserUpdateEmailComponent } from "./user-update-email/user-update-email.component";
+import { UserUpdateProfileComponent } from "./user-update-profile/user-update-profile.component";
 
 @NgModule({
     imports: [PostModule, RouterModule, SharedModule, UsersRoutingModule],
     declarations: [
+        UserDashboardComponent,
         UserDetailComponent,
-        UserEmailUpdateComponent,
+        UserUpdateEmailComponent,
         UserListComponent,
         UserListItemComponent,
+        UserUpdateProfileComponent,
     ],
-    exports: [UserEmailUpdateComponent],
+    exports: [UserDashboardComponent],
 })
 export class UserModule {}

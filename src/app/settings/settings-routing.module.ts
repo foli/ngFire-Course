@@ -1,11 +1,11 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { UserDashboardComponent } from "./user-dashboard/user-dashboard.component";
+import { SettingsDashboardComponent } from "./settings-dashboard/settings-dashboard.component";
 
 const routes: Routes = [
     { path: "", pathMatch: "full", redirectTo: "me" },
-    { path: "me", component: UserDashboardComponent },
+    { path: "me", component: SettingsDashboardComponent },
 ];
 
 @NgModule({

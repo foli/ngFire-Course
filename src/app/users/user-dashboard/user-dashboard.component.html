@@ -1,0 +1,4 @@
+<section *ngIf="user$ | async as user">
+    <app-user-update-profile [user]="user"></app-user-update-profile>
+    <app-user-update-email [user]="user"></app-user-update-email>
+</section>

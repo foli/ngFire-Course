@@ -1,0 +1,34 @@
+<mat-expansion-panel expanded="true">
+    <mat-expansion-panel-header>
+        <mat-panel-title>Update profile</mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="photoURL" [ngStyle]="{ 'background-image': 'url(' + user.photoURL + ')' }">
+        <input
+            type="file"
+            accept="image/*"
+            name="file"
+            id="file"
+            class="uploadPhoto"
+            (change)="uploadPhotoURL($event)"
+        />
+        <label for="file">Change Photo</label>
+    </div>
+    <mat-progress-bar
+        mode="determinate"
+        *ngIf="uploadPercent"
+        [value]="uploadPercent | async"
+    ></mat-progress-bar>
+
+    <mat-form-field>
+        <input matInput placeholder="Update your name" [formControl]="displayName" />
+        <mat-icon matSuffix (click)="clear()">close</mat-icon>
+        <mat-error *ngIf="displayName.invalid && (displayName.dirty || displayName.touched)"
+            >Please enter a valid name.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-action-row>
+        <button mat-button (click)="changeProfile()">Save</button>
+    </mat-action-row>
+</mat-expansion-panel>

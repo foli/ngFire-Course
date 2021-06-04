@@ -7,6 +7,7 @@ import {
     AngularFirestoreCollection,
     AngularFirestoreDocument,
 } from "@angular/fire/firestore";
+import { AngularFireStorage } from "@angular/fire/storage";
 
 import { User } from "./user.model";
 
@@ -18,17 +19,31 @@ export class UserService {
 
     userDoc: AngularFirestoreDocument<User>;
 
-    constructor(private route: Router, private afs: AngularFirestore) {
+    constructor(
+        private route: Router,
+        private afs: AngularFirestore,
+        private storage: AngularFireStorage,
+    ) {
         this.userCollection = this.afs.collection("users");
     }
 
     getUsers() {
-        return this.userCollection.valueChanges();
+        try {
+            return this.userCollection.valueChanges();
+        } catch (error) {
+            // TODO: handle error messages
+            return error.message;
+        }
     }
 
     getUser(uid: string) {
-        this.userDoc = this.afs.doc<User>(`users/${uid}`);
-        return this.userDoc.valueChanges();
+        try {
+            this.userDoc = this.afs.doc<User>(`users/${uid}`);
+            return this.userDoc.valueChanges();
+        } catch (error) {
+            // TODO: handle error messages
+            return error.message;
+        }
     }
 
     async changeEmail(newEmail: string) {
@@ -48,6 +63,40 @@ export class UserService {
                 // TODO: let user known that recent auth is needed.
                 this.route.navigate(["auth", "signin"]);
             }
+            return error.message;
+        }
+    }
+
+    async changeProfile(profile: { displayName?: string; photoURL?: string }) {
+        try {
+            await firebase.auth().currentUser.updateProfile(profile);
+            console.log("update profile");
+        } catch (error) {
+            // TODO: handle error messages
+            console.log(error.message);
+        }
+    }
+
+    uploadPhotoURL(files: FileList, user: User) {
+        try {
+            const file = files[0];
+
+            if (file.type.split("/")[0] !== "image") {
+                throw Error("only images allowed");
+            }
+
+            const filePath: string = `users/${user.uid}/photoURL/${file.name}`;
+            const fileRef = this.storage.ref(filePath);
+
+            const task = this.storage.upload(filePath, file);
+
+            // TODO: Let user know file has been uploaded successfully
+            console.log("File has been uploaded.");
+
+            return { fileRef, task };
+        } catch (error) {
+            // TODO: handle error messages
+            console.log(error.message);
             return error.message;
         }
     }

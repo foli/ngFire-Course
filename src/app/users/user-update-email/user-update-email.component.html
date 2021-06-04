@@ -1,10 +1,11 @@
-<mat-expansion-panel>
+<mat-expansion-panel expanded="true">
     <mat-expansion-panel-header>
         <mat-panel-title>Change Email</mat-panel-title>
     </mat-expansion-panel-header>
 
     <mat-form-field>
-        <input matInput placeholder="Enter you email" [formControl]="email" required />
+        <input matInput placeholder="Update your  email" [formControl]="email" required />
+        <mat-icon matSuffix (click)="clear()">close</mat-icon>
         <mat-error *ngIf="email.invalid && (email.dirty || email.touched)"
             >Please enter a valid email.
         </mat-error>
