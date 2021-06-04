@@ -32,7 +32,7 @@ export class UserUpdateProfileComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.taskRef.unsubscribe();
+        this.taskRef?.unsubscribe();
     }
 
     async uploadPhotoURL(event: Event) {
@@ -53,11 +53,13 @@ export class UserUpdateProfileComponent implements OnInit, OnDestroy {
     }
 
     async changeProfile() {
-        const url = await this.downloadURL.toPromise();
-        const profile = {
+        const profile: Partial<User> = {
             displayName: this.displayName.value,
-            photoURL: url || this.user.photoURL,
         };
+        if (this.downloadURL) {
+            const url = await this.downloadURL.toPromise();
+            profile.photoURL = url;
+        }
         return this.userService.changeProfile(profile);
     }
 

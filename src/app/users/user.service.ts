@@ -8,8 +8,12 @@ import {
     AngularFirestoreDocument,
 } from "@angular/fire/firestore";
 import { AngularFireStorage } from "@angular/fire/storage";
+import { environment } from "src/environments/environment";
+
+import { first } from "rxjs/operators";
 
 import { User } from "./user.model";
+import { AuthService } from "../auth/auth.service";
 
 @Injectable({
     providedIn: "root",
@@ -23,6 +27,7 @@ export class UserService {
         private route: Router,
         private afs: AngularFirestore,
         private storage: AngularFireStorage,
+        private authService: AuthService,
     ) {
         this.userCollection = this.afs.collection("users");
     }
@@ -46,16 +51,35 @@ export class UserService {
         }
     }
 
+    async updateUser(data: Partial<User>) {
+        try {
+            const { uid } = await this.authService.user$.pipe(first()).toPromise();
+            if (uid) {
+                await this.afs.doc(`users/${uid}`).update(data);
+                // TODO: user feedback
+                console.log("Data has been saved on firestore.");
+            }
+        } catch (error) {
+            // TODO: handle error messages
+            console.log(error.message);
+        }
+    }
+
     async changeEmail(newEmail: string) {
         try {
+            const actionCodeSettings = {
+                url: `${environment.baseURL}/auth/signin`,
+                handleCodeInApp: true,
+            };
             if (!firebase.auth().currentUser) {
                 // TODO: use route guard to avoid unauthorized user to access this page.
                 console.log("Please login");
                 this.route.navigate(["auth", "signin"]);
             }
             await firebase.auth().currentUser.updateEmail(newEmail);
-            await firebase.auth().currentUser.sendEmailVerification();
+            await firebase.auth().currentUser.sendEmailVerification(actionCodeSettings);
 
+            this.updateUser({ email: newEmail });
             // TODO: create a message bus to notify users
             return `Your email has been changed to ${newEmail}.`;
         } catch (error) {
@@ -70,6 +94,8 @@ export class UserService {
     async changeProfile(profile: { displayName?: string; photoURL?: string }) {
         try {
             await firebase.auth().currentUser.updateProfile(profile);
+
+            this.updateUser(profile);
             console.log("update profile");
         } catch (error) {
             // TODO: handle error messages
