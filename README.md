@@ -15,9 +15,9 @@ A simple application build with Angular and Firebase for learning purposes.
     -   [x] user list
     -   [x] user detail
     -   [ ] user settings (WIP)
-        -   [ ] update email
-        -   [ ] update profile (displayName, photoURL)
-        -   [ ] update Firestore data
+        -   [x] update email
+        -   [x] update profile (displayName, photoURL)
+        -   [x] update Firestore data
         -   [ ] user roles
 -   [ ] blogging
 -   [ ] comments
