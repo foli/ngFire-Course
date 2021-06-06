@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
-import { FormControl } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 
 import { Observable, Subscription } from "rxjs";
 import { finalize } from "rxjs/operators";
@@ -17,18 +17,31 @@ export class UserUpdateProfileComponent implements OnInit, OnDestroy {
 
     displayName: FormControl;
 
+    profileExtraForm: FormGroup;
+
     uploadPercent: Observable<number>;
 
     downloadURL: Observable<string>;
 
     taskRef: Subscription;
 
-    constructor(private userService: UserService) {
+    constructor(public fb: FormBuilder, private userService: UserService) {
         this.displayName = new FormControl("");
+        this.profileExtraForm = this.fb.group({
+            website: [""],
+            location: [""],
+            bio: [""],
+        });
     }
 
     ngOnInit() {
         this.displayName.setValue(this.user.displayName);
+        // TODO: avoid saving empty values on Firebase.
+        this.profileExtraForm.setValue({
+            website: this.user.website || "",
+            location: this.user.location || "",
+            bio: this.user.bio || "",
+        });
     }
 
     ngOnDestroy() {
@@ -55,7 +68,11 @@ export class UserUpdateProfileComponent implements OnInit, OnDestroy {
     async changeProfile() {
         const profile: Partial<User> = {
             displayName: this.displayName.value,
+            website: this.profileExtraForm.get("website").value,
+            location: this.profileExtraForm.get("location").value,
+            bio: this.profileExtraForm.get("bio").value,
         };
+        console.log(profile);
         if (this.downloadURL) {
             const url = await this.downloadURL.toPromise();
             profile.photoURL = url;

@@ -27,6 +27,18 @@
             >Please enter a valid name.
         </mat-error>
     </mat-form-field>
+    <div [formGroup]="profileExtraForm">
+        <mat-form-field>
+            <input matInput placeholder="Website" formControlName="website" />
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Location" formControlName="location" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Bio</mat-label>
+            <textarea matInput formControlName="bio"></textarea>
+        </mat-form-field>
+    </div>
 
     <mat-action-row>
         <button mat-button (click)="changeProfile()">Save</button>
