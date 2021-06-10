@@ -12,11 +12,11 @@
             </div>
 
             <mat-card-actions align="end">
-                <button mat-icon-button (click)="trending(post.trending)">
-                    <span>{{ post.trending }}</span>
+                <button mat-icon-button (click)="likeIt(post.likes)">
+                    <span>{{ post.likes }}</span>
                     <mat-icon>whatshot</mat-icon>
                 </button>
-                <button
+                <!-- <button
                     mat-icon-button
                     (click)="delete(post.id)"
                     *ngIf="auth.currentUserId === post.authorId"
@@ -29,7 +29,7 @@
                     *ngIf="auth.currentUserId === post.authorId"
                 >
                     <mat-icon>edit</mat-icon>
-                </button>
+                </button> -->
             </mat-card-actions>
         </mat-card>
     </div>
@@ -75,8 +75,8 @@
             </mat-card-content>
 
             <mat-card-actions align="end">
-                <button mat-icon-button (click)="trending(post.trending)">
-                    <span>{{ post.trending }}</span>
+                <button mat-icon-button (click)="likeIt(post.likes)">
+                    <span>{{ post.likes }}</span>
                     <mat-icon>whatshot</mat-icon>
                 </button>
             </mat-card-actions>

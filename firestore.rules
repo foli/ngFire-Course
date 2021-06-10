@@ -1,19 +1,27 @@
 rules_version = '2';
 service cloud.firestore {
-  match /databases/{database}/documents {
-    
-    match /users/{userId} {
-        allow read: if true;
-        allow write: if belongsTo(userId); 
-    }
+    match /databases/{database}/documents {
+      
+        match /users/{userId} {
+            allow read: if true;
+            allow write: if belongsTo(userId); 
+        }
 
-    match /{document=**} {
-      allow read, write: if false;
+        match /posts/{postId} {
+            allow read: if true;
+            allow write: if isAuthor(request.auth.uid); 
+        }
+
+        match /{document=**} {
+            allow read, write: if false;
+        }
+        
+        function belongsTo(userId) {
+            return request.auth.uid == userId
+        }
+
+        function isAuthor(userId) {
+            return request.resource.data.authorId == userId
+        }
     }
-    
-    function belongsTo(userId) {
-      return request.auth.uid == userId
-    }
-    
-  }
 }

@@ -1,8 +1,27 @@
 rules_version = '2';
 service firebase.storage {
-  match /b/{bucket}/o {
-    match /{allPaths=**} {
-      allow read, write: if request.auth!=null;
+    match /b/{bucket}/o {
+
+        match /users/{userId} {
+            allow read;
+            allow write: if belongsTo(userId);
+        }
+
+        match /posts/{postId} {
+            allow read;
+            allow write: if isAuthenticated() && request.resource.contentType.matches('image/.*');
+        }
+
+        match /{allPaths=**} {
+            allow read, write: if false;
+        }
+
+        function isAuthenticated() {
+          return request.auth!=null;
+        }
+
+        function belongsTo(userId) {
+            return request.auth.uid == userId
+        }
     }
-  }
 }

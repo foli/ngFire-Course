@@ -1,0 +1,28 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>Create Post</mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-progress-bar
+        *ngIf="uploadPercent"
+        [hidden]="!uploadPercent"
+        [value]="uploadPercent | async"
+    ></mat-progress-bar>
+    <input type="file" #fileInput name="file" id="file" (change)="onFileInput($event)" />
+    <img [src]="imagePlaceholder" />
+
+    <div [formGroup]="postForm">
+        <mat-form-field>
+            <input matInput placeholder="Title" formControlName="title" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Content</mat-label>
+            <textarea matInput formControlName="content"></textarea>
+        </mat-form-field>
+        <mat-slide-toggle formControlName="draft">Publish?</mat-slide-toggle>
+    </div>
+
+    <mat-action-row>
+        <button mat-button (click)="reset()">Cancel</button>
+        <button mat-button (click)="savePost()" color="accent">Save</button>
+    </mat-action-row>
+</mat-expansion-panel>

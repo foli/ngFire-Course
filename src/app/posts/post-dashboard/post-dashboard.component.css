@@ -1,0 +1,16 @@
+section {
+    margin: auto;
+    width: 90%;
+}
+
+mat-form-field {
+    width: 100%;
+}
+img {
+    width: 100%;
+}
+.image-preview {
+    width: 100%;
+    min-height: 50px;
+    background-color: #f6f6f6;
+}

@@ -34,16 +34,19 @@ export class PostListItemComponent {
     }
 
     update() {
-        const formData = {
+        const post = {
             title: this.post.title,
             image: this.imageURL || this.post.image,
             content: this.post.content,
             draft: this.post.draft,
         };
-        this.postService.update(this.post.id, formData);
+        this.postService.update(this.post.id, post);
         this.editing = false;
     }
 
+    uploadPostImage(event) {
+        console.log(event);
+    }
     // uploadPostImage(event) {
     //     const file = event.target.files[0];
     //     const path = `posts/${file.name}`;
@@ -57,9 +60,9 @@ export class PostListItemComponent {
     //     this.downloadURL.subscribe((url) => (this.imageURL = url));
     // }
 
-    trending(value: number) {
+    likeIt(value: number) {
         if (this.post.id) {
-            this.postService.update(this.post.id, { trending: value + 1 });
+            this.postService.update(this.post.id, { likes: value + 1 });
         }
     }
 }

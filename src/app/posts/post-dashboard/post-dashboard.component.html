@@ -1,4 +1,8 @@
-<mat-card>
+<section *ngIf="user$ | async as user">
+    <app-post-create [user]="user"></app-post-create>
+</section>
+
+<!-- <mat-card>
     <h3>Add a Post</h3>
 
     <section>
@@ -32,4 +36,4 @@
             <button mat-raised-button type="submit" color="accent">Save</button>
         </form>
     </section>
-</mat-card>
+</mat-card> -->

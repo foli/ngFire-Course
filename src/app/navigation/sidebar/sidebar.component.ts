@@ -21,6 +21,10 @@ export class SidebarComponent {
             name: "Users",
             url: "/users",
         },
+        {
+            name: "Blog",
+            url: "/blog",
+        },
     ];
 
     constructor(

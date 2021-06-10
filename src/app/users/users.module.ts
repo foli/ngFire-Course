@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 
-import { PostModule } from "../post/post.module";
 import { SharedModule } from "../shared/shared.module";
 import { UsersRoutingModule } from "./users-routing.module";
 
@@ -13,7 +12,7 @@ import { UserUpdateEmailComponent } from "./user-update-email/user-update-email.
 import { UserUpdateProfileComponent } from "./user-update-profile/user-update-profile.component";
 
 @NgModule({
-    imports: [PostModule, RouterModule, SharedModule, UsersRoutingModule],
+    imports: [RouterModule, SharedModule, UsersRoutingModule],
     declarations: [
         UserDashboardComponent,
         UserDetailComponent,
@@ -24,4 +23,4 @@ import { UserUpdateProfileComponent } from "./user-update-profile/user-update-pr
     ],
     exports: [UserDashboardComponent],
 })
-export class UserModule {}
+export class UsersModule {}

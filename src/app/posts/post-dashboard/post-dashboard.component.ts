@@ -1,11 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
 import { Observable } from "rxjs";
 
-import { AngularFireStorage } from "@angular/fire/storage";
-
-import { PostService } from "../post.service";
-// import { Post } from "../post.model";
+import { User } from "src/app/users/user.model";
 import { AuthService } from "../../auth/auth.service";
 
 @Component({
@@ -14,31 +10,12 @@ import { AuthService } from "../../auth/auth.service";
     styleUrls: ["./post-dashboard.component.css"],
 })
 export class PostDashboardComponent implements OnInit {
-    postForm: FormGroup;
+    user$: Observable<User>;
 
-    uploadPercent: Observable<number>;
-
-    downloadURL: Observable<string>;
-
-    imageURL: string;
-
-    constructor(
-        private postService: PostService,
-        private storage: AngularFireStorage,
-        private auth: AuthService,
-        private fb: FormBuilder,
-    ) {}
+    constructor(private authService: AuthService) {}
 
     ngOnInit() {
-        this.createForm();
-    }
-
-    createForm() {
-        this.postForm = this.fb.group({
-            title: [""],
-            content: [""],
-            draft: false,
-        });
+        this.user$ = this.authService.user$;
     }
 
     // savePost() {
