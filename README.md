@@ -47,7 +47,7 @@ export default firebase;
 Add it to `.gitignore`
 
 ```bash
-echo "src/environments/firebase.ts" >> .gitignore
+echo "firebase.ts" >> .gitignore
 ```
 
 Import it in on the environment
