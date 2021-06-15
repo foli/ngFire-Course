@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 
 import { SharedModule } from "../shared/shared.module";
+import { NavigationModule } from "../navigation/navigation.module";
 import { PostsRoutingModule } from "./posts-routing.module";
 
 import { PostDashboardComponent } from "./post-dashboard/post-dashboard.component";
@@ -10,7 +11,7 @@ import { PostListItemComponent } from "./post-list-item/post-list-item.component
 import { PostCreateComponent } from "./post-create/post-create.component";
 
 @NgModule({
-    imports: [SharedModule, PostsRoutingModule],
+    imports: [SharedModule, NavigationModule, PostsRoutingModule],
     declarations: [
         PostDashboardComponent,
         PostDetailComponent,
@@ -18,6 +19,5 @@ import { PostCreateComponent } from "./post-create/post-create.component";
         PostListItemComponent,
         PostCreateComponent,
     ],
-    exports: [PostDashboardComponent],
 })
 export class PostsModule {}

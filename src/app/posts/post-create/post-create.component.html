@@ -13,16 +13,29 @@
     <div [formGroup]="postForm">
         <mat-form-field>
             <input matInput placeholder="Title" formControlName="title" />
+            <mat-error *ngIf="title.invalid && (title.dirty || title.touched)"
+                >You must enter a title
+            </mat-error>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Content</mat-label>
             <textarea matInput formControlName="content"></textarea>
+            <mat-error *ngIf="content.invalid && (content.dirty || content.touched)"
+                >You must have some content
+            </mat-error>
         </mat-form-field>
         <mat-slide-toggle formControlName="draft">Publish?</mat-slide-toggle>
     </div>
 
     <mat-action-row>
         <button mat-button (click)="reset()">Cancel</button>
-        <button mat-button (click)="savePost()" color="accent">Save</button>
+        <button
+            mat-button
+            (click)="savePost()"
+            [disabled]="title.invalid || content.invalid"
+            color="accent"
+        >
+            Save
+        </button>
     </mat-action-row>
 </mat-expansion-panel>

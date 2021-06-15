@@ -9,7 +9,7 @@ service cloud.firestore {
 
         match /posts/{postId} {
             allow read: if true;
-            allow write: if isAuthor(request.auth.uid); 
+            allow write: if isAuthor(); 
         }
 
         match /{document=**} {
@@ -20,8 +20,9 @@ service cloud.firestore {
             return request.auth.uid == userId
         }
 
-        function isAuthor(userId) {
-            return request.resource.data.authorId == userId
+        function isAuthor() {
+            return resource == null
+            && request.resource.data.authorId == request.auth.uid
         }
     }
 }

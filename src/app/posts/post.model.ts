@@ -7,7 +7,7 @@ export class Post {
 
     authorId: string;
 
-    image: any;
+    image: string;
 
     title: string;
 
@@ -18,4 +18,12 @@ export class Post {
     likes: number;
 
     published: firebase.firestore.Timestamp;
+}
+
+export interface FormData {
+    title: string;
+
+    content: string;
+
+    draft: boolean;
 }

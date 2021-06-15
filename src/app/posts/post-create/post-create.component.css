@@ -1,10 +1,8 @@
 mat-expansion-panel {
     margin-top: 2em;
+    margin-bottom: 2em;
 }
 mat-form-field {
-    width: 100%;
-}
-.image-preview {
     width: 100%;
 }
 img {

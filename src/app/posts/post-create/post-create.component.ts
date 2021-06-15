@@ -1,10 +1,11 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { Observable } from "rxjs";
+import { AuthService } from "src/app/auth/auth.service";
 
 import { User } from "src/app/users/user.model";
-import { Post } from "../post.model";
+import { FormData } from "../post.model";
 import { PostService } from "../post.service";
 
 @Component({
@@ -13,9 +14,9 @@ import { PostService } from "../post.service";
     styleUrls: ["./post-create.component.css"],
 })
 export class PostCreateComponent implements OnInit {
-    @Input() user: User;
-
     @ViewChild("fileInput", { static: true }) fileInput: ElementRef;
+
+    user$: Observable<User>;
 
     postForm: FormGroup;
 
@@ -25,25 +26,39 @@ export class PostCreateComponent implements OnInit {
 
     imageFile: File;
 
-    constructor(private fb: FormBuilder, private postService: PostService) {}
+    constructor(
+        private fb: FormBuilder,
+        private authService: AuthService,
+        private postService: PostService,
+    ) {}
 
     ngOnInit() {
+        this.user$ = this.authService.user$;
         this.postForm = this.fb.group({
             title: ["", Validators.required],
             content: ["", Validators.required],
             draft: false,
         });
+        this.postForm.setValue({ title: "", content: "", draft: false });
+    }
+
+    get title() {
+        return this.postForm.get("title");
+    }
+
+    get content() {
+        return this.postForm.get("content");
     }
 
     async savePost() {
         try {
-            const post: Partial<Post> = {
+            const payload: FormData = {
                 title: this.postForm.get("title").value,
                 content: this.postForm.get("content").value,
                 draft: this.postForm.get("draft").value,
             };
-            console.log(post);
-            this.uploadPercent = await this.postService.create(post, this.imageFile);
+            this.uploadPercent = await this.postService.create(payload, this.imageFile);
+            // TODO: give time for progressbar to display animation before reset form
             this.reset();
         } catch (error) {
             console.log(error.message);
