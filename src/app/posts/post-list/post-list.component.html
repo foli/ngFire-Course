@@ -1,4 +1,15 @@
-<mat-grid-list [cols]="cols" gutterSize="15">
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>{{ title }}</span>
+        <span class="spacer"></span>
+        <button mat-stroked-button routerLink="dashboard">Dashboard</button>
+        <button mat-icon-button aria-label="Menu" (click)="sidenavService.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-grid-list [cols]="cols" gutterSize="5">
     <mat-grid-tile *ngFor="let post of posts | async">
         <app-post-list-item [post]="post"></app-post-list-item>
     </mat-grid-tile>

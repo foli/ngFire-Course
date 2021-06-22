@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 
+import { Observable } from "rxjs";
+import { SidenavService } from "src/app/navigation/sidenav.service";
+import { StorageService } from "src/app/shared/storage.service";
 import { PostService } from "../post.service";
 import { Post } from "../post.model";
 
@@ -12,15 +15,26 @@ import { Post } from "../post.model";
 export class PostDetailComponent implements OnInit {
     post: Post;
 
-    constructor(private route: ActivatedRoute, private postService: PostService) {}
+    title: string = "Post";
+
+    image$: Observable<string>;
+
+    constructor(
+        private route: ActivatedRoute,
+        private postService: PostService,
+        public sidenavService: SidenavService,
+        public storageService: StorageService,
+    ) {}
 
     ngOnInit() {
         this.getPost();
-        console.log("post detail");
     }
 
     getPost(): void {
         const id = this.route.snapshot.paramMap.get("id");
-        this.postService.getPostData(id).subscribe();
+        this.postService.getPost(id).subscribe((data) => {
+            this.post = data;
+            this.image$ = this.storageService.getDownloadURL(data.image);
+        });
     }
 }

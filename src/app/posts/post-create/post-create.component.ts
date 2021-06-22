@@ -1,8 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
+import firebase from "firebase/app";
 import { Observable } from "rxjs";
+
 import { AuthService } from "src/app/auth/auth.service";
+import { StorageService } from "src/app/shared/storage.service";
 
 import { User } from "src/app/users/user.model";
 import { FormData } from "../post.model";
@@ -30,6 +33,7 @@ export class PostCreateComponent implements OnInit {
         private fb: FormBuilder,
         private authService: AuthService,
         private postService: PostService,
+        private storageService: StorageService,
     ) {}
 
     ngOnInit() {
@@ -51,18 +55,21 @@ export class PostCreateComponent implements OnInit {
     }
 
     async savePost() {
-        try {
-            const payload: FormData = {
-                title: this.postForm.get("title").value,
-                content: this.postForm.get("content").value,
-                draft: this.postForm.get("draft").value,
-            };
-            this.uploadPercent = await this.postService.create(payload, this.imageFile);
-            // TODO: give time for progressbar to display animation before reset form
-            this.reset();
-        } catch (error) {
-            console.log(error.message);
-        }
+        const { id } = firebase.firestore().collection("posts").doc();
+
+        const payload: FormData = {
+            id,
+            title: this.title.value,
+            content: this.content.value,
+            image: `posts/${id}`,
+            draft: this.postForm.get("draft").value,
+        };
+
+        const { task } = await this.storageService.uploadImage(this.imageFile, payload.image);
+
+        this.uploadPercent = task.percentageChanges();
+        this.postService.create(payload);
+        this.reset();
     }
 
     async onFileInput(event: Event) {

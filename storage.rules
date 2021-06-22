@@ -3,21 +3,18 @@ service firebase.storage {
     match /b/{bucket}/o {
 
         match /users/{userId} {
-            allow read;
+            allow read: if true;
             allow write: if belongsTo(userId);
         }
 
         match /posts/{postId} {
-            allow read;
-            allow write: if isAuthenticated() && request.resource.contentType.matches('image/.*');
+            allow read: if true;
+            allow create: if request.auth != null && request.resource.contentType.matches('image/.*');
+            allow delete, update: if belongsTo(resource.data.authorId);
         }
 
         match /{allPaths=**} {
             allow read, write: if false;
-        }
-
-        function isAuthenticated() {
-          return request.auth!=null;
         }
 
         function belongsTo(userId) {

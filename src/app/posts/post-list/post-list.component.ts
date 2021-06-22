@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { Observable, Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
+import { SidenavService } from "src/app/navigation/sidenav.service";
 import { Post } from "../post.model";
 import { PostService } from "../post.service";
 
@@ -14,6 +15,8 @@ import { PostService } from "../post.service";
 export class PostListComponent implements OnInit, OnDestroy {
     posts: Observable<Post[]>;
 
+    title: string = "Blog";
+
     cols: number;
 
     destroyed = new Subject<void>();
@@ -24,7 +27,11 @@ export class PostListComponent implements OnInit, OnDestroy {
         [Breakpoints.XLarge, "XLarge"],
     ]);
 
-    constructor(private breakpointObserver: BreakpointObserver, private postService: PostService) {}
+    constructor(
+        private breakpointObserver: BreakpointObserver,
+        private postService: PostService,
+        public sidenavService: SidenavService,
+    ) {}
 
     ngOnInit() {
         this.getPosts();

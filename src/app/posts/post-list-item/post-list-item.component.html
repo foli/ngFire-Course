@@ -1,18 +1,9 @@
-<mat-card>
-    <div routerLink="{{ post.id }}">
-        <img src="{{ post.image }}" alt="{{ post.title }}" [hidden]="post.image === null" />
-        <mat-card-content>
-            <mat-card-title>{{ post.title }}</mat-card-title>
-            <mat-card-subtitle
-                >posted by {{ post.author }} {{ post.published.toDate() | fromNow }}
-            </mat-card-subtitle>
-        </mat-card-content>
-    </div>
-
-    <mat-card-actions align="end">
-        <button mat-icon-button (click)="likeIt(post.likes)">
-            <span class="likes">{{ post.likes }}</span>
-            <mat-icon>thumb_up</mat-icon>
-        </button>
-    </mat-card-actions>
+<mat-card [routerLink]="post.id">
+    <img [src]="image$ | async" [alt]="post.title" [hidden]="post.image === null" />
+    <mat-card-content>
+        <mat-card-title>{{ post.title }}</mat-card-title>
+        <mat-card-subtitle
+            >posted by {{ post.author }} {{ post.published.toDate() | fromNow }}
+        </mat-card-subtitle>
+    </mat-card-content>
 </mat-card>

@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { SidenavService } from "src/app/navigation/sidenav.service";
 
 @Component({
     selector: "app-post-dashboard",
@@ -6,5 +7,7 @@ import { Component } from "@angular/core";
     styleUrls: ["./post-dashboard.component.css"],
 })
 export class PostDashboardComponent {
-    title: string = "Blog";
+    title: string = "Dashboard";
+
+    constructor(public sidenavService: SidenavService) {}
 }

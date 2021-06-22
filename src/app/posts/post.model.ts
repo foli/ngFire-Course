@@ -21,9 +21,13 @@ export class Post {
 }
 
 export interface FormData {
+    id: string;
+
     title: string;
 
     content: string;
+
+    image: string;
 
     draft: boolean;
 }

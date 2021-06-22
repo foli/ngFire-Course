@@ -1,6 +1,16 @@
-<app-topbar [title]="title"></app-topbar>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <button mat-icon-button aria-label="Go back" routerLink="/blog">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span>{{ title }}</span>
+        <span class="spacer"></span>
+        <button mat-icon-button aria-label="Menu" (click)="sidenavService.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
 
 <main>
     <app-post-create></app-post-create>
-    <app-post-list></app-post-list>
 </main>

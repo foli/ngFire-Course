@@ -1,13 +1,25 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <button mat-icon-button aria-label="Go back" routerLink="/blog">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span>{{ title }}</span>
+        <span class="spacer"></span>
+        <button mat-stroked-button routerLink="../dashboard">Dashboard</button>
+        <button mat-icon-button aria-label="Menu" (click)="sidenavService.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
 <mat-card *ngIf="post">
-    <div>
-        <img src="{{ post.image }}" alt="{{ post.title }}" [hidden]="post.image === null" />
-        <mat-card-content>
-            <mat-card-title>{{ post.title }}</mat-card-title>
-            <mat-card-subtitle
-                >posted by {{ post.author }} {{ post.published | fromNow }}
-            </mat-card-subtitle>
-            <p>{{ post.id }}</p>
-            <p>{{ post.content }}</p>
-        </mat-card-content>
-    </div>
+    <img [src]="image$ | async" [alt]="post.title" [hidden]="post.image === null" />
+    <mat-card-content>
+        <mat-card-title>{{ post.title }}</mat-card-title>
+        <mat-card-subtitle
+            >posted by {{ post.author }} {{ post.published.toDate() | fromNow }}
+        </mat-card-subtitle>
+        <p>{{ post.id }}</p>
+        <p>{{ post.content }}</p>
+    </mat-card-content>
 </mat-card>
