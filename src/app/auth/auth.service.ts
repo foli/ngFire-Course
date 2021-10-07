@@ -1,9 +1,23 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Optional } from "@angular/core";
 import { Router } from "@angular/router";
 
-import firebase from "firebase/app";
-import { AngularFireAuth } from "@angular/fire/auth";
-import { AngularFirestore } from "@angular/fire/firestore";
+// import firebase from "firebase/app";
+import {
+    Auth,
+    authState,
+    createUserWithEmailAndPassword,
+    GoogleAuthProvider,
+    isSignInWithEmailLink,
+    sendEmailVerification,
+    sendPasswordResetEmail,
+    sendSignInLinkToEmail,
+    signInWithEmailAndPassword,
+    signInWithEmailLink,
+    signInWithPopup,
+    signOut,
+    UserCredential,
+} from "@angular/fire/auth";
+import { doc, docData, Firestore } from "@angular/fire/firestore";
 
 import { Observable, of } from "rxjs";
 import { switchMap } from "rxjs/operators";
@@ -22,29 +36,29 @@ export class AuthService {
     private windowRef: Window;
 
     constructor(
-        private afAuth: AngularFireAuth,
-        private afs: AngularFirestore,
+        @Optional() private auth: Auth,
+        private firestore: Firestore,
         private router: Router,
         private browserService: BrowserService,
     ) {
         this.windowRef = this.browserService.getBrowserWindow();
-
-        this.user$ = this.afAuth.authState.pipe(
-            switchMap((user: firebase.User) => {
-                if (user) {
-                    return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-                }
-                return of(null);
-            }),
-        );
+        if (auth) {
+            this.user$ = authState(this.auth).pipe(
+                switchMap((user: any) => {
+                    if (user) {
+                        const ref = doc(firestore, `users/${user.uid}`);
+                        return docData(ref);
+                    }
+                    return of(null);
+                }),
+            );
+        }
     }
 
-    public async emailSignIn(
-        email: string,
-        password: string,
-    ): Promise<firebase.auth.UserCredential> {
+    async signInWithEmailAndPassword(email: string, password: string): Promise<UserCredential> {
         try {
-            const result = await this.afAuth.signInWithEmailAndPassword(email, password);
+            const result = await signInWithEmailAndPassword(this.auth, email, password);
+            console.log(result);
             if (result) {
                 this.router.navigate(["home"]);
                 // TODO: use snackBar for login message || toast service
@@ -52,18 +66,16 @@ export class AuthService {
             }
             return result;
         } catch (error) {
+            console.log(error.message);
             return error;
         }
     }
 
-    public async emailSignUp(
-        email: string,
-        password: string,
-    ): Promise<firebase.auth.UserCredential> {
+    async createUserWithEmailAndPassword(email: string, password: string): Promise<UserCredential> {
         try {
-            const result = await this.afAuth.createUserWithEmailAndPassword(email, password);
+            const result = await createUserWithEmailAndPassword(this.auth, email, password);
             if (result) {
-                await firebase.auth().currentUser.sendEmailVerification();
+                await sendEmailVerification(result.user);
                 // TODO: save user data on firestore
                 // TODO: use snackBar for welcome message || toast service
                 console.log("We've sent you an email verification link!");
@@ -77,9 +89,9 @@ export class AuthService {
         }
     }
 
-    public google(): Promise<firebase.auth.UserCredential> {
+    async signInWithGoogle() {
         try {
-            const result = this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+            const result = await signInWithPopup(this.auth, new GoogleAuthProvider());
             if (result) {
                 console.log("Welcome!");
                 this.router.navigate(["home"]);
@@ -91,17 +103,17 @@ export class AuthService {
         }
     }
 
-    public async verifyEmailLogin(url: string): Promise<firebase.auth.UserCredential> {
+    async signInWithEmailLink(url: string): Promise<UserCredential> {
         try {
-            if (this.afAuth.isSignInWithEmailLink(url)) {
-                let email = this.windowRef.localStorage.getItem("emailForSignIn");
+            let email = this.windowRef.localStorage.getItem("emailForSignIn");
 
-                if (!email) {
-                    email = this.windowRef.prompt("Please confirm your email.");
-                }
+            if (!email) {
+                // TODO: don't use prompt
+                email = this.windowRef.prompt("Please confirm your email.");
+            }
 
-                const result = await this.afAuth.signInWithEmailLink(email, url);
-
+            if (isSignInWithEmailLink(this.auth, url)) {
+                const result = await signInWithEmailLink(this.auth, email, url);
                 if (result) {
                     console.log(result);
                     console.log("Login successful");
@@ -109,54 +121,57 @@ export class AuthService {
                 }
 
                 this.router.navigate(["home"]);
+                return result;
             }
             return null;
         } catch (error) {
-            console.log(error);
+            console.log(error.message);
             return error;
         }
     }
 
-    public async sendEmailLink(email: string): Promise<string> {
+    async sendSignInLinkToEmail(email: string): Promise<void> {
         try {
             const actionCodeSettings = {
                 url: `${environment.baseURL}/auth`,
                 handleCodeInApp: true,
             };
             if (email) {
-                await this.afAuth.sendSignInLinkToEmail(email, actionCodeSettings);
-                this.windowRef.localStorage.setItem("emailForSignIn", email);
+                await sendSignInLinkToEmail(this.auth, email, actionCodeSettings);
                 // TODO: use snackBar for login message || toast service
                 console.log("Email link sent.");
             }
-            return "Email link sent.";
+            return null;
         } catch (error) {
+            console.log(error.message);
             return error;
         }
     }
 
-    public async resetPassword(email: string): Promise<string> {
+    async sendPasswordResetEmail(email: string) {
         try {
             const actionCodeSettings = {
                 url: `${environment.baseURL}/auth/signin`,
                 handleCodeInApp: true,
             };
-            await firebase.auth().sendPasswordResetEmail(email, actionCodeSettings);
+            await sendPasswordResetEmail(this.auth, email, actionCodeSettings);
             // TODO: use snackBar for reset message
             console.log("We've sent you a password reset link");
             this.router.navigate(["home"]);
             return "We've sent you a password reset link";
         } catch (error) {
+            console.log(error.message);
             return error;
         }
     }
 
-    public async signOut(): Promise<string> {
+    async signOut(): Promise<void> {
         try {
-            await this.afAuth.signOut();
+            await signOut(this.auth);
             console.info("signOut");
+            // TODO: let user know sign out was completed.
             this.router.navigate(["home"]);
-            return "You have been signed out.";
+            return null;
         } catch (error) {
             console.warn(error.message);
             return error;
